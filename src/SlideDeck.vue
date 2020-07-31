@@ -297,7 +297,7 @@ export default {
 };
 </script>
 
-<style lang="postcss">
+<style>
 .slide-deck {
     height: auto;
     position: relative;
