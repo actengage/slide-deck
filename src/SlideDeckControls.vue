@@ -61,24 +61,22 @@ export default {
 };
 </script>
 
-<style lang="postcss">
-.slide-deck-controls {
-    .slide-deck-control-icon {
-        color: white;
-        font-size: 2em;
-        padding: .25em .15em;
+<style>
+.slide-deck-controls .slide-deck-control-icon {
+    color: white;
+    font-size: 2em;
+    padding: .25em .15em;
+}
 
-        &:hover {
-            text-decoration: none;
-        }
+.slide-deck-controls:hover {
+    text-decoration: none;
+}
 
-        &:not(:last-child) {
-            margin-right: 1rem / 2;
-        }
-    }
+.slide-deck-controls :not(:last-child) {
+    margin-right: 1rem / 2;
+}
 
-    .slide-deck-control-icon.is-active {
-        color: $primary;
-    }
+.slide-deck-controls .slide-deck-control-icon.is-active {
+    color: $primary;
 }
 </style>
