@@ -2,20 +2,16 @@
     <div class="slide-deck" :class="{'slide-deck-flex': center, 'is-sliding': isSliding}">
         <slot name="top" />
         <div ref="content" class="slide-deck-content" :style="styles()">
-            <keep-alive>
-                <transition
-                    :name="`slide-${direction}`"
-                    @after-enter="onSlideAfterEnter"
-                    @before-enter="onSlideBeforeEnter"
-                    @enter="onSlideEnter"
-                    @after-leave="onSlideAfterLeave"
-                    @before-leave="onSlideBeforeLeave"
-                    @leave="onSlideLeave">
-                    <slides ref="slides" :key="currentSlide" :active="currentSlide">
-                        <slot />
-                    </slides>
-                </transition>
-            </keep-alive>
+            <transition
+                :name="`slide-${direction}`"
+                @after-enter="onSlideAfterEnter"
+                @before-enter="onSlideBeforeEnter"
+                @enter="onSlideEnter"
+                @after-leave="onSlideAfterLeave"
+                @before-leave="onSlideBeforeLeave"
+                @leave="onSlideLeave">
+                <slides ref="slides" :active="currentSlide" :nodes="$slots.default" />
+            </transition>
         </div>
         <slot name="middle" />
         <slot name="controls" :slides="slides()" :active="currentSlide">
@@ -28,7 +24,6 @@
 <script>
 import Slides from './Slides';
 import SlideDeckControls from './SlideDeckControls';
-
 import { isFunction, transition } from '@vue-interface/utils';
 
 export default {
@@ -135,12 +130,7 @@ export default {
             }
 
             return null;
-        },
-
-        nodes() {
-            return this.$slots.default;
         }
-
     },
 
     watch: {

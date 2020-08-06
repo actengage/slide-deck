@@ -2014,12 +2014,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"d1f70918-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/SlideDeck.vue?vue&type=template&id=715bb459&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"slide-deck",class:{'slide-deck-flex': _vm.center, 'is-sliding': _vm.isSliding}},[_vm._t("top"),_c('div',{ref:"content",staticClass:"slide-deck-content",style:(_vm.styles())},[_c('keep-alive',[_c('transition',{attrs:{"name":("slide-" + _vm.direction)},on:{"after-enter":_vm.onSlideAfterEnter,"before-enter":_vm.onSlideBeforeEnter,"enter":_vm.onSlideEnter,"after-leave":_vm.onSlideAfterLeave,"before-leave":_vm.onSlideBeforeLeave,"leave":_vm.onSlideLeave}},[_c('slides',{key:_vm.currentSlide,ref:"slides",attrs:{"active":_vm.currentSlide}},[_vm._t("default")],2)],1)],1)],1),_vm._t("middle"),_vm._t("controls",[(_vm.controls && _vm.mounted)?_c('slide-deck-controls',{ref:"controls",attrs:{"slides":_vm.slides(),"active":_vm.currentSlide},on:{"click":_vm.onClickControl}}):_vm._e()],{"slides":_vm.slides(),"active":_vm.currentSlide}),_vm._t("bottom")],2)}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"79eb71de-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/SlideDeck.vue?vue&type=template&id=205e5dc2&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"slide-deck",class:{'slide-deck-flex': _vm.center, 'is-sliding': _vm.isSliding}},[_vm._t("top"),_c('div',{ref:"content",staticClass:"slide-deck-content",style:(_vm.styles())},[_c('transition',{attrs:{"name":("slide-" + _vm.direction)},on:{"after-enter":_vm.onSlideAfterEnter,"before-enter":_vm.onSlideBeforeEnter,"enter":_vm.onSlideEnter,"after-leave":_vm.onSlideAfterLeave,"before-leave":_vm.onSlideBeforeLeave,"leave":_vm.onSlideLeave}},[_c('slides',{ref:"slides",attrs:{"active":_vm.currentSlide,"nodes":_vm.$slots.default}})],1)],1),_vm._t("middle"),_vm._t("controls",[(_vm.controls && _vm.mounted)?_c('slide-deck-controls',{ref:"controls",attrs:{"slides":_vm.slides(),"active":_vm.currentSlide},on:{"click":_vm.onClickControl}}):_vm._e()],{"slides":_vm.slides(),"active":_vm.currentSlide}),_vm._t("bottom")],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/SlideDeck.vue?vue&type=template&id=715bb459&
+// CONCATENATED MODULE: ./src/SlideDeck.vue?vue&type=template&id=205e5dc2&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
 var es_array_concat = __webpack_require__("99af");
@@ -2030,6 +2030,13 @@ var es_array_index_of = __webpack_require__("c975");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
 var es_number_constructor = __webpack_require__("a9e3");
 
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"79eb71de-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Slides.vue?vue&type=template&id=10dc99be&
+var Slidesvue_type_template_id_10dc99be_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('keep-alive',[_c('slide',{key:_vm.currentSlide,attrs:{"node":_vm.slide(_vm.currentSlide)}})],1)}
+var Slidesvue_type_template_id_10dc99be_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/Slides.vue?vue&type=template&id=10dc99be&
+
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
 var es_array_filter = __webpack_require__("4de4");
 
@@ -2039,6 +2046,146 @@ var es_array_map = __webpack_require__("d81d");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.assign.js
 var es_object_assign = __webpack_require__("cca6");
 
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Slide.vue?vue&type=script&lang=js&
+//
+/* harmony default export */ var Slidevue_type_script_lang_js_ = ({
+  name: 'Slide',
+  props: {
+    /**
+     * The active slide index or key.
+     *
+     * @type {String|Number}
+     */
+    node: {
+      type: Object
+    }
+  },
+  render: function render(h) {
+    return this.node;
+  }
+});
+// CONCATENATED MODULE: ./src/Slide.vue?vue&type=script&lang=js&
+ /* harmony default export */ var src_Slidevue_type_script_lang_js_ = (Slidevue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functional component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+// CONCATENATED MODULE: ./src/Slide.vue
+var Slide_render, Slide_staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = normalizeComponent(
+  src_Slidevue_type_script_lang_js_,
+  Slide_render,
+  Slide_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ var Slide = (component.exports);
 // CONCATENATED MODULE: ./node_modules/@vue-interface/utils/src/camelCase.js
 function camelCase(string) {
     if(!string) {
@@ -2344,10 +2491,30 @@ function transition(el, defaultValue) {
 
 
 
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ var Slidesvue_type_script_lang_js_ = ({
   name: 'Slides',
+  components: {
+    Slide: Slide
+  },
   props: {
+    /**
+     * Keep the slides alive after transitions. This prevents the
+     * re-rendering of the slide components.
+     *
+     * @type {Boolean}
+     */
+    keepAlive: {
+      type: Boolean,
+      "default": true
+    },
+
     /**
      * The active slide index or key.
      *
@@ -2356,12 +2523,15 @@ function transition(el, defaultValue) {
     active: {
       type: [String, Number],
       "default": 0
+    },
+    nodes: {
+      type: Array
     }
   },
   data: function data() {
     return {
-      lastSlide: null,
-      currentSlide: this.active
+      currentSlide: this.active,
+      lastSlide: null
     };
   },
   watch: {
@@ -2370,6 +2540,15 @@ function transition(el, defaultValue) {
       this.currentSlide = value;
     }
   },
+  created: function created() {
+    this.elms = {};
+  },
+  mounted: function mounted() {
+    this.elms[this.currentSlide] = this.slide(this.currentSlide).elm;
+  },
+  updated: function updated() {
+    this.elms[this.currentSlide] = this.slide(this.currentSlide).elm;
+  },
   methods: {
     /**
      * Get the HTML nodes from the default slots (exluding children without tags).
@@ -2377,7 +2556,7 @@ function transition(el, defaultValue) {
      * @return {Array}
      */
     slides: function slides() {
-      return this.$slots["default"].filter(function (vnode, i) {
+      return this.nodes.filter(function (vnode, i) {
         return !!vnode.tag;
       }).map(function (vnode, i) {
         if (!vnode.key || !vnode.data && !vnode.data.key) {
@@ -2456,125 +2635,22 @@ function transition(el, defaultValue) {
         return false;
       });
     }
-  },
-  render: function render(h) {
-    return this.slide(this.currentSlide);
   }
 });
 // CONCATENATED MODULE: ./src/Slides.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_Slidesvue_type_script_lang_js_ = (Slidesvue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode /* vue-cli only */
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () {
-        injectStyles.call(
-          this,
-          (options.functional ? this.parent : this).$root.$options.shadowRoot
-        )
-      }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functional component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
 // CONCATENATED MODULE: ./src/Slides.vue
-var Slides_render, Slides_staticRenderFns
+
 
 
 
 
 /* normalize component */
 
-var component = normalizeComponent(
+var Slides_component = normalizeComponent(
   src_Slidesvue_type_script_lang_js_,
-  Slides_render,
-  Slides_staticRenderFns,
+  Slidesvue_type_template_id_10dc99be_render,
+  Slidesvue_type_template_id_10dc99be_staticRenderFns,
   false,
   null,
   null,
@@ -2582,13 +2658,13 @@ var component = normalizeComponent(
   
 )
 
-/* harmony default export */ var Slides = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"d1f70918-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/SlideDeckControls.vue?vue&type=template&id=01d44b96&
-var SlideDeckControlsvue_type_template_id_01d44b96_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"slide-deck-controls"},_vm._l((_vm.slides),function(slide,i){return _c('a',{key:i,staticClass:"slide-deck-control-icon",class:{'is-active': (slide.data ? slide.data.key : slide.key) === _vm.active},attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();return _vm.onClick($event, slide)}}},[_vm._t("default",[_vm._v("•")])],2)}),0)}
-var SlideDeckControlsvue_type_template_id_01d44b96_staticRenderFns = []
+/* harmony default export */ var Slides = (Slides_component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"79eb71de-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/SlideDeckControls.vue?vue&type=template&id=40f36b39&
+var SlideDeckControlsvue_type_template_id_40f36b39_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"slide-deck-controls"},_vm._l((_vm.slides),function(slide,i){return _c('a',{key:i,staticClass:"slide-deck-control-icon",class:{'is-active': (slide.data ? slide.data.key : slide.key) === _vm.active},attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();return _vm.onClick($event, slide)}}},[_vm._t("default",[_vm._v("•")])],2)}),0)}
+var SlideDeckControlsvue_type_template_id_40f36b39_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/SlideDeckControls.vue?vue&type=template&id=01d44b96&
+// CONCATENATED MODULE: ./src/SlideDeckControls.vue?vue&type=template&id=40f36b39&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/SlideDeckControls.vue?vue&type=script&lang=js&
 
@@ -2656,8 +2732,8 @@ var SlideDeckControlsvue_type_style_index_0_lang_css_ = __webpack_require__("567
 
 var SlideDeckControls_component = normalizeComponent(
   src_SlideDeckControlsvue_type_script_lang_js_,
-  SlideDeckControlsvue_type_template_id_01d44b96_render,
-  SlideDeckControlsvue_type_template_id_01d44b96_staticRenderFns,
+  SlideDeckControlsvue_type_template_id_40f36b39_render,
+  SlideDeckControlsvue_type_template_id_40f36b39_staticRenderFns,
   false,
   null,
   null,
@@ -2670,10 +2746,6 @@ var SlideDeckControls_component = normalizeComponent(
 
 
 
-//
-//
-//
-//
 //
 //
 //
@@ -2793,9 +2865,6 @@ var SlideDeckControls_component = normalizeComponent(
       }
 
       return null;
-    },
-    nodes: function nodes() {
-      return this.$slots["default"];
     }
   },
   watch: {

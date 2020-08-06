@@ -77,6 +77,6 @@ export default {
 }
 
 .slide-deck-controls .slide-deck-control-icon.is-active {
-    color: $primary;
+    color: blue;
 }
 </style>

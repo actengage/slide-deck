@@ -1,29 +1,53 @@
+<template>
+    <keep-alive>
+        <slide :key="currentSlide" :node="slide(currentSlide)" />
+    </keep-alive>
+</template>
 <script>
+import Slide from './Slide';
 import { first, findIndex, isUndefined } from '@vue-interface/utils';
 
 export default {
 
     name: 'Slides',
 
+    components: {
+        Slide
+    },
+
     props: {
+
+        /**
+         * Keep the slides alive after transitions. This prevents the
+         * re-rendering of the slide components.
+         *
+         * @type {Boolean}
+         */
+        keepAlive: {
+            type: Boolean,
+            default: true
+        },
 
         /**
          * The active slide index or key.
          *
          * @type {String|Number}
          */
-
         active: {
             type: [String, Number],
             default: 0
+        },
+
+        nodes: {
+            type: Array
         }
 
     },
 
     data() {
         return {
-            lastSlide: null,
-            currentSlide: this.active
+            currentSlide: this.active,
+            lastSlide: null
         };
     },
 
@@ -36,6 +60,18 @@ export default {
 
     },
 
+    created() {
+        this.elms = {};
+    },
+
+    mounted() {
+        this.elms[this.currentSlide] = this.slide(this.currentSlide).elm;
+    },
+
+    updated() {
+        this.elms[this.currentSlide] = this.slide(this.currentSlide).elm;
+    },
+
     methods: {
 
         /**
@@ -44,7 +80,7 @@ export default {
          * @return {Array}
          */
         slides() {
-            return this.$slots.default
+            return this.nodes
                 .filter((vnode, i) => {
                     return !!vnode.tag;
                 })
@@ -131,10 +167,6 @@ export default {
             });
         }
 
-    },
-
-    render(h) {
-        return this.slide(this.currentSlide);
     }
 
 };
