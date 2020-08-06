@@ -18,17 +18,6 @@ export default {
     props: {
 
         /**
-         * Keep the slides alive after transitions. This prevents the
-         * re-rendering of the slide components.
-         *
-         * @type {Boolean}
-         */
-        keepAlive: {
-            type: Boolean,
-            default: true
-        },
-
-        /**
          * The active slide index or key.
          *
          * @type {String|Number}
@@ -37,9 +26,15 @@ export default {
             type: [String, Number],
             default: 0
         },
-
+        
+        /**
+         * An array of VNodes from the parent.
+         *
+         * @type {Array}
+         */
         nodes: {
-            type: Array
+            type: Array,
+            required: true
         }
 
     },
@@ -56,20 +51,26 @@ export default {
         active(value, oldValue) {
             this.lastSlide = oldValue;
             this.currentSlide = value;
+        },
+
+        currentSlide(value, oldValue) {
+            this.$vnodes[oldValue] = this.$vnode.elm;
+        },
+
+        nodes(value, oldValue) {
+            Object.entries(this.$vnodes).forEach(([key, elm]) => {
+                const slide = this.slide(key);
+
+                if(slide) {
+                    slide.elm = elm;
+                }
+            });
         }
 
     },
 
     created() {
-        this.elms = {};
-    },
-
-    mounted() {
-        this.elms[this.currentSlide] = this.slide(this.currentSlide).elm;
-    },
-
-    updated() {
-        this.elms[this.currentSlide] = this.slide(this.currentSlide).elm;
+        this.$vnodes = {};
     },
 
     methods: {
@@ -96,12 +97,38 @@ export default {
         },
 
         /**
-         * Get a slide by index.
+         * Get a slide by key or index.
          *
          * @return {Array}
          */
         slide(index) {
-            return this.findSlideByKey(index) || this.findSlideByIndex(index) || this.findSlideByIndex(0);
+            return this.findSlideByKey(index)
+                || this.findSlideByIndex(index)
+                || this.findSlideByIndex(0);
+        },
+
+        /**
+         * Find the first slide by matching a query selector.
+         *
+         * @param  {String} selector
+         * @return {VNode|null}
+         */
+        findSlideByQuerySelector(selector) {
+            return first(this.findSlidesByQuerySelector(selector));
+        },
+
+        /**
+         * Find slides by matching a query selector.
+         *
+         * @param  {String} selector
+         * @return {Array}
+         */
+        findSlidesByQuerySelector(selector) {
+            return this.slides().filter(vnode => {
+                if(vnode.elm) {
+                    return !!vnode.elm.querySelector(selector);
+                }
+            });
         },
 
         /**
@@ -111,7 +138,7 @@ export default {
          * @return {VNode|null}
          */
         findSlideByKey(key) {
-            return first(this.slides().filter((vnode, i) => {
+            return first(this.slides().filter((vnode) => {
                 if(vnode.key === key) {
                     return vnode;
                 }

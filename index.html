@@ -49,7 +49,6 @@
                 </slide-deck>
             </div>
 
-            <!--
             <h3>SlideDeck with Controls</h3>
             <p>The controls can be automatically handled with a single property.</p>
 
@@ -66,7 +65,6 @@
                     </div>
                 </slide-deck>
             </div>
-        -->
 
         </div>
 
@@ -83,22 +81,12 @@
                 components: {
                     SlideDeck
                 },
-                watch: {
-                    step(value) {
-                        if(value === 1) {
-                            setTimeout(() => {
-                                this.step = 2;
-                            }, 2000);
-                        }
-                    }
-                },
                 methods: {
 
                 },
                 data() {
                     return {
                         form: {},
-                        step: 0,
                         currentSlide: 'Slide 2'
                     };
                 }

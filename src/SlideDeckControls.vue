@@ -68,7 +68,7 @@ export default {
     padding: .25em .15em;
 }
 
-.slide-deck-controls:hover {
+.slide-deck-controls > a:hover {
     text-decoration: none;
 }
 
@@ -77,6 +77,6 @@ export default {
 }
 
 .slide-deck-controls .slide-deck-control-icon.is-active {
-    color: blue;
+    color: #007bff;
 }
 </style>
