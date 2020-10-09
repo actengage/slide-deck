@@ -160,6 +160,10 @@ export default {
 
     methods: {
 
+        test(...args) {
+            console.log(...args);
+        },
+
         resize(el) {
             if(isFunction(this.resizeMode)) {
                 this.resizeMode(el || this.$el);

@@ -2,7 +2,7 @@
   "name": "@vue-interface/slide-deck",
   "version": "0.9.7",
   "description": "A Vue slide deck component.",
-  "main": "./dist/SlideDeck.umd.js",
+  "main": "./index.js",
   "scripts": {
     "watch": "npm run serve",
     "serve": "vue-cli-service build --target lib --name=SlideDeck ./index.js --watch",

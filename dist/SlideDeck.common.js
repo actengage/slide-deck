@@ -3469,12 +3469,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"57ad52ea-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/SlideDeck.vue?vue&type=template&id=205e5dc2&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"78616a28-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/SlideDeck.vue?vue&type=template&id=3d807fd8&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"slide-deck",class:{'slide-deck-flex': _vm.center, 'is-sliding': _vm.isSliding}},[_vm._t("top"),_c('div',{ref:"content",staticClass:"slide-deck-content",style:(_vm.styles())},[_c('transition',{attrs:{"name":("slide-" + _vm.direction)},on:{"after-enter":_vm.onSlideAfterEnter,"before-enter":_vm.onSlideBeforeEnter,"enter":_vm.onSlideEnter,"after-leave":_vm.onSlideAfterLeave,"before-leave":_vm.onSlideBeforeLeave,"leave":_vm.onSlideLeave}},[_c('slides',{ref:"slides",attrs:{"active":_vm.currentSlide,"nodes":_vm.$slots.default}})],1)],1),_vm._t("middle"),_vm._t("controls",[(_vm.controls && _vm.mounted)?_c('slide-deck-controls',{ref:"controls",attrs:{"slides":_vm.slides(),"active":_vm.currentSlide},on:{"click":_vm.onClickControl}}):_vm._e()],{"slides":_vm.slides(),"active":_vm.currentSlide}),_vm._t("bottom")],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/SlideDeck.vue?vue&type=template&id=205e5dc2&
+// CONCATENATED MODULE: ./src/SlideDeck.vue?vue&type=template&id=3d807fd8&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
 var es_array_concat = __webpack_require__("99af");
@@ -3485,7 +3485,7 @@ var es_array_index_of = __webpack_require__("c975");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
 var es_number_constructor = __webpack_require__("a9e3");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"57ad52ea-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Slides.vue?vue&type=template&id=54e9f7a0&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"78616a28-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Slides.vue?vue&type=template&id=54e9f7a0&
 var Slidesvue_type_template_id_54e9f7a0_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('keep-alive',[_c('slide',{key:_vm.currentSlide,attrs:{"node":_vm.slide(_vm.currentSlide)}})],1)}
 var Slidesvue_type_template_id_54e9f7a0_staticRenderFns = []
 
@@ -4669,7 +4669,7 @@ var Slides_component = normalizeComponent(
 )
 
 /* harmony default export */ var Slides = (Slides_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"57ad52ea-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/SlideDeckControls.vue?vue&type=template&id=622234da&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"78616a28-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/SlideDeckControls.vue?vue&type=template&id=622234da&
 var SlideDeckControlsvue_type_template_id_622234da_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"slide-deck-controls"},_vm._l((_vm.slides),function(slide,i){return _c('a',{key:i,staticClass:"slide-deck-control-icon",class:{'is-active': (slide.data ? slide.data.key : slide.key) === _vm.active},attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();return _vm.onClick($event, slide)}}},[_vm._t("default",[_vm._v("•")])],2)}),0)}
 var SlideDeckControlsvue_type_template_id_622234da_staticRenderFns = []
 
@@ -4899,6 +4899,11 @@ var SlideDeckControls_component = normalizeComponent(
     });
   },
   methods: {
+    test: function test() {
+      var _console;
+
+      (_console = console).log.apply(_console, arguments);
+    },
     resize: function resize(el) {
       if (isFunction(this.resizeMode)) {
         this.resizeMode(el || this.$el);
