@@ -2,7 +2,7 @@
   "name": "@vue-interface/slide-deck",
   "version": "0.9.6",
   "description": "A Vue slide deck component.",
-  "main": "index.js",
+  "main": "./dist/SlideDeck.umd.js",
   "scripts": {
     "watch": "npm run serve",
     "serve": "vue-cli-service build --target lib --name=SlideDeck ./index.js --watch",
@@ -37,24 +37,29 @@
   },
   "homepage": "https://github.com/vue-interface/slide-deck/docs#readme",
   "dependencies": {
-    "@vue-interface/utils": "^0.9.10",
+    "@vue-interface/utils": "^0.9.25",
     "core-js": "^3.6.4",
-    "tailwindcss": "^1.6.2",
-    "vue": "^2.6.11"
+    "tailwindcss": "^1.8.12",
+    "vue": "^2.6.12"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.0",
-    "@vue/cli-plugin-eslint": "^4.0",
-    "@vue/cli-service": "^4.0",
-    "@vuepress/plugin-register-components": "^1.5.3",
+    "@vue/cli-plugin-babel": "^4.5.7",
+    "@vue/cli-plugin-eslint": "^4.5.7",
+    "@vue/cli-service": "^4.5.7",
+    "@vuepress/plugin-register-components": "^1.6.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
+    "eslint": "^7.10.0",
+    "eslint-plugin-vue": "^7.0.1",
     "markdown-it-meta": "0.0.1",
-    "postcss-cli": "^7.1.1",
-    "vue-template-compiler": "^2.6.11",
-    "vuepress": "^1.5.3",
+    "postcss-cli": "^8.1.0",
+    "vue-template-compiler": "^2.6.12",
+    "vuepress": "^1.6.0",
     "vuepress-plugin-template-constants": "^0.2.1",
     "webpack-manifest-plugin": "^2.2.0"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }
