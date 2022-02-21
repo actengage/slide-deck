@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import Slides from './Slides';
-import SlideDeckControls from './SlideDeckControls';
+import Slides from './Slides.vue';
+import SlideDeckControls from './SlideDeckControls.vue';
 import { isFunction, transition } from '@vue-interface/utils';
 
 export default {

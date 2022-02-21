@@ -1,6 +1,6 @@
-import SlideDeck from './src/SlideDeck';
-import SlideDeckControls from './src/SlideDeckControls';
-import Slides from './src/Slides';
+import SlideDeck from './src/SlideDeck.vue';
+import SlideDeckControls from './src/SlideDeckControls.vue';
+import Slides from './src/Slides.vue';
 
 export {
     SlideDeck,

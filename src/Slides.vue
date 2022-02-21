@@ -4,7 +4,7 @@
     </keep-alive>
 </template>
 <script>
-import Slide from './Slide';
+import Slide from './Slide.vue';
 import { first, findIndex, isUndefined } from '@vue-interface/utils';
 
 export default {

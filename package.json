@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/vue-interface/slide-deck/docs#readme",
   "dependencies": {
-    "@vue-interface/utils": "^0.9.25",
+    "@vue-interface/utils": "^0.9.34",
     "core-js": "^3.6.4",
     "tailwindcss": "^1.8.12",
     "vue": "^2.6.12"
