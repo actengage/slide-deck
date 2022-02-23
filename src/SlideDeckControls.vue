@@ -1,14 +1,13 @@
 <template>
-    <!-- TODO: Add tooltip with slide name/key to the control once the tooltip directive has been written. -->
     <div class="slide-deck-controls">
         <a
-            v-for="(slide, i) in slides"
-            :key="i"
+            v-for="(slide, index) in slots"
+            :key="index"
             href="#"
             class="slide-deck-control-icon"
-            :class="{'is-active': (slide.data ? slide.data.key : slide.key) === active}"
+            :class="{'is-active': isActive(slide, index)}"
             @click.prevent="onClick($event, slide)">
-            <slot>&bull;</slot>
+            <slot v-bind="Object.assign({ slide, index }, context)">&bull;</slot>
         </a>
     </div>
 </template>
@@ -16,12 +15,10 @@
 <script>
 export default {
 
-    name: 'SlideDeckControls',
-    
     props: {
 
         /**
-         * The slide key or index that should show.
+         * The active key or index that should show.
          *
          * @type {Number}
          */
@@ -31,26 +28,40 @@ export default {
         },
 
         /**
-         * An array of slide vnodes
+         * An array of vnodes.
          *
-         * @type {Number}
+         * @type {Array}
          */
-        slides: {
+        slots: {
             type: Array,
             required: true
         }
 
     },
 
-    data() {
-        return {};
-    },
-
     computed: {
-
+        context() {
+            return this;
+        }
     },
 
     methods: {
+
+        key(vnode) {
+            return vnode.data ? vnode.data.key : vnode.key;
+        },
+
+        isActive(vnode, i) {
+            if(this.key(vnode) === this.active) {
+                return true;
+            }
+            
+            if(i === this.active) {
+                return true;
+            }
+
+            return false;
+        },
 
         onClick(event, slide) {
             this.$emit('click', event, slide);
@@ -62,8 +73,14 @@ export default {
 </script>
 
 <style>
+.slide-deck-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: currentColor;
+}
+
 .slide-deck-controls .slide-deck-control-icon {
-    color: white;
     font-size: 2em;
     padding: .25em .15em;
 }
@@ -73,7 +90,7 @@ export default {
 }
 
 .slide-deck-controls :not(:last-child) {
-    margin-right: 1rem / 2;
+    margin-right: .5rem;
 }
 
 .slide-deck-controls .slide-deck-control-icon.is-active {

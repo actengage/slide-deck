@@ -1,37 +1,48 @@
 <template>
-    <div class="slide-deck" :class="{'slide-deck-flex': center, 'is-sliding': isSliding}">
-        <slot name="top" />
-        <div ref="content" class="slide-deck-content" :style="styles()">
+    <div class="slide-deck" :class="{ sliding }">
+        <slot name="top" v-bind="this" :active="currentActive" />
+        <div ref="content" class="slide-deck-content" :class="{ [direction]: true }" :style="{ maxHeight }">
             <transition
                 :name="`slide-${direction}`"
-                @after-enter="onSlideAfterEnter"
-                @before-enter="onSlideBeforeEnter"
-                @enter="onSlideEnter"
-                @after-leave="onSlideAfterLeave"
-                @before-leave="onSlideBeforeLeave"
-                @leave="onSlideLeave">
-                <slides ref="slides" :active="currentSlide" :nodes="$slots.default" />
+                @before-enter="onBeforeEnter"
+                @enter="onEnter"
+                @after-enter="onAfterEnter"
+                @before-leave="onBeforeLeave"
+                @leave="onLeave"
+                @after-leave="onAfterLeave">
+                <keep-alive>
+                    <slide :key="this.currentActive" :node="find(this.currentActive)" />
+                </keep-alive>
             </transition>
         </div>
-        <slot name="middle" />
-        <slot name="controls" :slides="slides()" :active="currentSlide">
-            <slide-deck-controls v-if="controls && mounted" ref="controls" :slides="slides()" :active="currentSlide" @click="onClickControl" />
+        <slot name="middle" v-bind="this" :active="currentActive" />
+        <slot name="controls" v-bind="this" :active="currentActive">
+            <slide-deck-controls
+                v-if="controls && mounted"
+                ref="controls"
+                v-bind="this"
+                :slots="slots()"
+                :active="currentActive" 
+                @click="onClickControl">
+                <template #default="context">
+                    <slot name="bullet" v-bind="context" />
+                </template>
+            </slide-deck-controls>
         </slot>
-        <slot name="bottom" />
+        <slot name="bottom" v-bind="this" :active="currentActive" />
     </div>
 </template>
 
 <script>
-import Slides from './Slides.vue';
+import Slide from './Slide.vue';
 import SlideDeckControls from './SlideDeckControls.vue';
-import { isFunction, transition } from '@vue-interface/utils';
 
 export default {
 
     name: 'SlideDeck',
 
     components: {
-        Slides,
+        Slide,
         SlideDeckControls
     },
 
@@ -40,7 +51,7 @@ export default {
         /**
          * The slide key or index that should show.
          *
-         * @type {Number}
+         * @type {String|Number}
          */
         active: {
             type: [String, Number],
@@ -48,11 +59,12 @@ export default {
         },
 
         /**
-         * Center the slide-deck.
+         * Automatically resize the height of the slide so it animates from one
+         * slide to the next.
          *
-         * @type Boolean
+         * @type {String|Number}
          */
-        center: {
+        autoResize: {
             type: Boolean,
             default: true
         },
@@ -64,90 +76,26 @@ export default {
          */
         controls: Boolean,
 
-        /**
-         * Flex the content within the popover.
-         *
-         * @type Boolean
-         */
-        flex: {
-            type: Boolean,
-            default: true
-        },
-
-        /**
-         * Give a selector or Element to use apply a hidden overflow. If false,
-         * no overflow will be applied. Defaults to the slide deck's container.
-         *
-         * @type {String|Element|Boolean}
-         */
-        overflow: {
-            type: [Object, String, Element, Boolean],
-            default: true
-        },
-
-        /**
-         * The mode determines how the popover content will flex based on the
-         * varying heights of the slides.
-         *
-         * @type Boolean
-         */
-        resizeMode: {
-            type: [Function, Boolean, String],
-            default: 'auto',
-            validate(value) {
-                return ['auto', 'initial', 'inherit'].indexOf(value) !== 1;
-            }
-        }
-
     },
 
     data() {
         return {
-            height: null,
-            width: null,
+            currentActive: this.active,
+            direction: 'forward',
+            maxHeight: null,
             mounted: false,
             lastSlide: null,
-            isSliding: false,
-            currentSlide: this.active,
-            direction: 'forward'
+            sliding: false,
         };
     },
     
-    computed: {
-
-        overflowElement() {
-            if(this.overflow === true) {
-                return this.$el;
-            }
-            else if(this.overflow instanceof Element) {
-                return this.overflow;
-            }
-            else if(this.overflow && this.overflow.elm) {
-                return this.overflow.elm;
-            }
-            else if(this.overflow) {
-                return document.querySelector(this.overflow);
-            }
-
-            return null;
-        }
-    },
-
     watch: {
 
-        active(value, oldValue) {
+        currentActive(value, oldValue) {
             this.lastSlide = oldValue;
-            this.currentSlide = value;
-        },
-
-        isSliding(value) {
-            if(this.overflowElement) {
-                this.overflowElement.style.overflow = value ? 'hidden' : 'inherit';
-            }
-        },
-
-        currentSlide(value, oldValue) {
-            this.direction = this.$refs.slides.getSlideIndex(oldValue) > this.$refs.slides.getSlideIndex(value) ? 'backward' : 'forward';
+            this.direction = (
+                this.findIndex(oldValue) > this.findIndex(value)
+            ) ? 'backward' : 'forward';
         }
 
     },
@@ -160,130 +108,132 @@ export default {
 
     methods: {
 
-        test(...args) {
-            console.log(...args);
+        findIndex(key) {
+            return this.slots().findIndex((vnode, i) => {
+                if(this.key(vnode) === key) {
+                    return true;
+                }
+                
+                if(i === key) {
+                    return true;
+                }
+
+                return false;
+            });
+        },
+
+        find(key) {
+            return this.slots()[this.findIndex(key)];
+        },
+
+        key(vnode) {
+            return vnode.data ? vnode.data.key : vnode.key;
+        },
+
+        goto(key) {
+            if(!this.sliding) {
+                this.currentActive = this.findIndex(this.key(key));
+            }
+        },
+
+        next() {
+            if(!this.sliding) {
+                this.currentActive = Math.min(
+                    this.findIndex(this.currentActive) + 1, this.slots().length - 1
+                );
+            }
+        },
+
+        prev() {
+            if(!this.sliding) {
+                this.currentActive = Math.max(
+                    this.findIndex(this.currentActive) - 1, 0
+                );
+            }
         },
 
         resize(el) {
-            if(isFunction(this.resizeMode)) {
-                this.resizeMode(el || this.$el);
-            }
-            else {
-                const style = getComputedStyle(el);
+            const height = getComputedStyle(el).height;
 
-                if(!el.style.width) {
-                    el.width = el.style.width = `calc(${style.width} + ${style.marginLeft} + ${style.marginRight})`;
-                }
-
-                if(!el.style.height) {
-                    el.height = el.style.height = `calc(${style.height} + ${style.marginTop} + ${style.marginBottom})`;
-                }
-            }
+            this.maxHeight = height === '0x'
+                ? this.maxHeight
+                : height;
         },
-
-        styles() {
-            return {
-                width: this.width,
-                height: this.height,
-            };
-        },
-
-        slides() {
-            return this.$refs.slides ? this.$refs.slides.slides() : [];
-        },
-
-        slide(index) {
-            return this.$refs.slides ? this.$refs.slides.slide(index || this.active) : null;
+        
+        slots() {
+            return (this.$slots.default || this.$scopedSlots.default(this))
+                .filter(vnode => {
+                    return !!vnode.tag;
+                })
+                .map((slot, key) => {
+                    return Object.assign(slot, {
+                        key
+                    });
+                });
         },
 
         onClickControl(event, vnode) {
-            this.currentSlide = vnode.data ? vnode.data.key : vnode.key;
+            if(!this.sliding) {
+                this.goto(vnode);
+            }
         },
 
-        onSlideAfterEnter(el) {
-            if(el.width) {
-                el.width = el.style.width = null;
-            }
+        onBeforeLeave(el) {
+            this.autoResize && this.resize(el);
+            this.$emit(
+                'before-leave',
+                this.find(this.currentActive),
+                this.find(this.lastSlide)
+            );
+        },
 
-            if(el.height) {
-                el.height = el.style.height = null;
-            }
+        onBeforeEnter(el) {
+            this.sliding = true;
+            this.$emit(
+                'before-enter',
+                this.find(this.currentActive),
+                this.find(this.lastSlide)
+            );
+        },
 
-            this.width = null;
-            this.height = null;
-
-            if(this.$refs.slides) {
+        onEnter(el) {
+            this.$nextTick(() => {
+                this.autoResize && this.resize(el);
                 this.$emit(
-                    'after-enter', this.$refs.slides.slide(this.currentSlide), this.$refs.slides.slide(this.lastSlide)
+                    'enter',
+                    this.find(this.currentActive),
+                    this.find(this.lastSlide)
                 );
-            }
-        },
-
-        onSlideBeforeEnter(el) {
-            this.isSliding = true;
-            
-            if(this.$refs.slides) {
-                this.$emit(
-                    'before-enter', this.$refs.slides.slide(this.currentSlide), this.$refs.slides.slide(this.lastSlide)
-                );
-            }
-        },
-
-        onSlideEnter(el, done) {
-            this.resize(el);
-            this.width = el.style.width;
-            this.height = el.style.height;
-
-            transition(el).then(delay => {
-                this.isSliding = false;
-                this.$nextTick(done);
             });
-
-            if(this.$refs.slides) {
-                this.$emit(
-                    'enter', this.$refs.slides.slide(this.currentSlide), this.$refs.slides.slide(this.lastSlide)
-                );
-            }
         },
 
-        onSlideAfterLeave(el) {
-            if(el.width) {
-                el.width = el.style.width = null;
-            }
+        onAfterEnter(el) {
+            this.$emit(
+                'after-enter',
+                this.find(this.currentActive),
+                this.find(this.lastSlide)
+            );
+        },
 
-            if(el.height) {
-                el.height = el.style.height = null;
-            }
+        onLeave(el) {
+            this.$emit(
+                'leave',
+                this.find(this.currentActive),
+                this.find(this.lastSlide)
+            );
+        },
+
+        onAfterLeave(el) {
+            this.sliding = false;
 
             this.$nextTick(() => {
-                if(this.$refs.slides) {
-                    this.$emit(
-                        'after-leave', this.$refs.slides.slide(this.lastSlide), this.$refs.slides.slide(this.currentSlide)
-                    );
-                }
-            });
-        },
-
-        onSlideBeforeLeave(el) {
-            this.resize(el);
-
-            if(this.$refs.slides) {
+                this.maxHeight = null
                 this.$emit(
-                    'before-leave', this.$refs.slides.slide(this.lastSlide), this.$refs.slides.slide(this.currentSlide)
+                    'before-leave',
+                    this.find(this.currentActive),
+                    this.find(this.lastSlide)
                 );
-            }
-        },
-
-        onSlideLeave(el, done) {
-            transition(el).then(delay => {
-                this.$nextTick(done);
             });
-
-            if(this.$refs.slides) {
-                this.$emit(
-                    'leave', this.$refs.slides.slide(this.lastSlide), this.$refs.slides.slide(this.currentSlide)
-                );
-            }
         }
 
     }
@@ -295,69 +245,55 @@ export default {
 .slide-deck {
     height: auto;
     position: relative;
-    transition: all .333s ease;
 }
 
-.slide-deck.slide-deck-flex {
+.slide-deck.sliding {
+    overflow: hidden;
+}
+
+.slide-deck .slide-deck-content {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-wrap: nowrap;
+    transition-property: max-height;
+    transition-duration: 250ms;
+    transition-timing-function: ease-in-out;
+    max-height: auto;
 }
 
-.slide-deck .slide-deck-content {
-    flex: 1;
-    margin: auto;
+.slide-deck .slide-deck-content.forward {
+    flex-direction: row;
 }
 
-.slide-deck .slide-deck-content {
-    position: relative;
-    transition: all .333s ease;
-}
-    
-.slide-deck .slide-deck-controls {
-    position: absolute;
-    left: 50%;
-    bottom: 1rem;
-    transform: translateX(-50%);
+.slide-deck .slide-deck-content.backward {
+    flex-direction: row-reverse;
 }
 
-.slide-deck .slide-forward-enter-active,
-.slide-deck .slide-forward-leave-active,
-.slide-deck .slide-backward-enter-active,
-.slide-deck .slide-backward-leave-active {
-    opacity: 0;
-    transition: all .333s ease-out;
-    position: absolute;
-    top: 0;
-}
-
-.slide-deck .slide-forward-enter-active,
-.slide-deck .slide-backward-enter-active {
-    transition: all .333s ease-out;
+.slide-deck .slide-deck-slide {
     width: 100%;
+    flex-shrink: 0;
+    align-self: flex-start;
 }
 
-.slide-deck .slide-forward-enter-active {
-    left: 0;
-}
-
-.slide-deck .slide-backward-enter-active {
-    right: 0;
-}
-
-.slide-deck .slide-forward-enter-active,
-.slide-deck .slide-backward-leave-to {
-    transform: translateX(115%);
-}
-
-.slide-deck .slide-forward-leave-to,
-.slide-deck .slide-backward-enter-active {
-    transform: translateX(-115%);
+.slide-forward-leave-active,
+.slide-forward-enter-active,
+.slide-backward-leave-active,
+.slide-backward-enter-active {
+    transition: all 250ms ease-in-out;
 }
 
 .slide-deck .slide-forward-enter-to,
-.slide-deck .slide-backward-enter-to {
-    opacity: 1;
-    transform: translateX(0);
+.slide-deck .slide-forward-leave-to { 
+    transform: translateX(-100%);
+}
+
+.slide-deck .slide-backward-enter-to,
+.slide-deck .slide-backward-leave-to { 
+    transform: translateX(100%);
+}
+
+.slide-deck-controls {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 </style>

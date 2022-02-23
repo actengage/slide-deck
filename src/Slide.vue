@@ -9,16 +9,19 @@ export default {
         /**
          * The active slide index or key.
          *
-         * @type {String|Number}
+         * @type {Object}
          */
-        node: {
-            type: Object
-        }
-
+        node: Object
     },
 
-    render(h) {
-        return this.node;
+    mounted() {
+        this.node.elm.dispatchEvent(new Event('enter'));
+    },
+
+    render(createElement) {
+        return createElement('div', {
+            staticClass: 'slide-deck-slide'
+        }, [this.node]);
     }
 
 };
