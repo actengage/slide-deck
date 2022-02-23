@@ -227,7 +227,7 @@ export default {
             this.sliding = false;
 
             this.$nextTick(() => {
-                this.maxHeight = null
+                this.maxHeight = null;
                 this.$emit(
                     'before-leave',
                     this.find(this.currentActive),
