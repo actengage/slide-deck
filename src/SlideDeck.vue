@@ -11,7 +11,7 @@
                 @leave="onLeave"
                 @after-leave="onAfterLeave">
                 <keep-alive>
-                    <slide :key="this.currentActive" :node="find(this.currentActive)" />
+                    <slide :key="currentActive" :node="find(currentActive)" />
                 </keep-alive>
             </transition>
         </div>
