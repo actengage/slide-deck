@@ -7,7 +7,7 @@
     "dist",
     "src"
   ],
-  "main": "./dist/wizard.umd.js",
+  "main": "./dist/slide-deck.umd.js",
   "module": "./index.js",
   "browserslist": "last 2 versions, > 0.5%, ie >= 11",
   "scripts": {
