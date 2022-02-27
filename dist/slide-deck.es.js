@@ -153,6 +153,7 @@ const __vue2_script = {
     SlideDeckControls
   },
   props: {
+    attrs: Object,
     active: {
       type: [String, Number],
       default: 0
@@ -161,7 +162,8 @@ const __vue2_script = {
       type: Boolean,
       default: true
     },
-    controls: Boolean
+    controls: Boolean,
+    props: Object
   },
   data() {
     return {
@@ -182,6 +184,7 @@ const __vue2_script = {
   mounted() {
     this.$nextTick(() => {
       this.mounted = true;
+      this.$emit("enter", this.slot());
     });
   },
   methods: {
@@ -200,7 +203,7 @@ const __vue2_script = {
       return this.slots()[this.findIndex(key)];
     },
     key(vnode) {
-      return vnode.data ? vnode.data.key : vnode.key;
+      return vnode.data && vnode.data.key || vnode.key;
     },
     goto(key) {
       if (!this.sliding) {
@@ -221,10 +224,15 @@ const __vue2_script = {
       const height = getComputedStyle(el).height;
       this.maxHeight = height === "0x" ? this.maxHeight : height;
     },
+    slot() {
+      return this.find(this.currentActive);
+    },
     slots() {
       return (this.$slots.default || this.$scopedSlots.default(this)).filter((vnode) => {
         return !!vnode.tag;
       }).map((slot, key) => {
+        Object.assign(slot.componentOptions.propsData, this.props);
+        Object.assign(slot.data.attrs, this.attrs);
         return Object.assign(slot, {
           key
         });
@@ -237,29 +245,29 @@ const __vue2_script = {
     },
     onBeforeLeave(el) {
       this.autoResize && this.resize(el);
-      this.$emit("before-leave", this.find(this.currentActive), this.find(this.lastSlide));
+      this.$emit("before-leave", this.slot(), this.find(this.lastSlide));
     },
     onBeforeEnter(el) {
       this.sliding = true;
-      this.$emit("before-enter", this.find(this.currentActive), this.find(this.lastSlide));
+      this.$emit("before-enter", this.slot(), this.find(this.lastSlide));
     },
     onEnter(el) {
       this.$nextTick(() => {
         this.autoResize && this.resize(el);
-        this.$emit("enter", this.find(this.currentActive), this.find(this.lastSlide));
+        this.$emit("enter", this.slot(), this.find(this.lastSlide));
       });
     },
     onAfterEnter(el) {
-      this.$emit("after-enter", this.find(this.currentActive), this.find(this.lastSlide));
+      this.$emit("after-enter", this.slot(), this.find(this.lastSlide));
     },
     onLeave(el) {
-      this.$emit("leave", this.find(this.currentActive), this.find(this.lastSlide));
+      this.$emit("leave", this.slot(), this.find(this.lastSlide));
     },
     onAfterLeave(el) {
       this.sliding = false;
       this.$nextTick(() => {
         this.maxHeight = null;
-        this.$emit("before-leave", this.find(this.currentActive), this.find(this.lastSlide));
+        this.$emit("before-leave", this.slot(), this.find(this.lastSlide));
       });
     }
   }

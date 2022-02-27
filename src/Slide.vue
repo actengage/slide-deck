@@ -5,7 +5,6 @@ export default {
     name: 'Slide',
 
     props: {
-
         /**
          * The active slide index or key.
          *
@@ -18,9 +17,9 @@ export default {
         this.node.elm.dispatchEvent(new Event('enter'));
     },
 
-    render(createElement) {
+    render(createElement) {        
         return createElement('div', {
-            staticClass: 'slide-deck-slide'
+            staticClass: 'slide-deck-slide',
         }, [this.node]);
     }
 

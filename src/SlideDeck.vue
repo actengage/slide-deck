@@ -49,6 +49,13 @@ export default {
     props: {
 
         /**
+         * Additional attributes to be passed to the slots.
+         *
+         * @type Boolean
+         */
+        attrs: Object,
+
+        /**
          * The slide key or index that should show.
          *
          * @type {String|Number}
@@ -75,6 +82,13 @@ export default {
          * @type Boolean
          */
         controls: Boolean,
+
+        /**
+         * Additional props to be passed to the slots.
+         *
+         * @type Boolean
+         */
+        props: Object,
 
     },
 
@@ -103,6 +117,7 @@ export default {
     mounted() {
         this.$nextTick(() => {
             this.mounted = true;
+            this.$emit('enter', this.slot());
         });
     },
 
@@ -127,7 +142,7 @@ export default {
         },
 
         key(vnode) {
-            return vnode.data ? vnode.data.key : vnode.key;
+            return vnode.data && vnode.data.key || vnode.key;
         },
 
         goto(key) {
@@ -160,12 +175,19 @@ export default {
                 : height;
         },
         
+        slot() {
+            return this.find(this.currentActive);
+        },
+
         slots() {
             return (this.$slots.default || this.$scopedSlots.default(this))
                 .filter(vnode => {
                     return !!vnode.tag;
                 })
                 .map((slot, key) => {
+                    Object.assign(slot.componentOptions.propsData, this.props);
+                    Object.assign(slot.data.attrs, this.attrs);
+            
                     return Object.assign(slot, {
                         key
                     });
@@ -182,7 +204,7 @@ export default {
             this.autoResize && this.resize(el);
             this.$emit(
                 'before-leave',
-                this.find(this.currentActive),
+                this.slot(),
                 this.find(this.lastSlide)
             );
         },
@@ -191,7 +213,7 @@ export default {
             this.sliding = true;
             this.$emit(
                 'before-enter',
-                this.find(this.currentActive),
+                this.slot(),
                 this.find(this.lastSlide)
             );
         },
@@ -201,7 +223,7 @@ export default {
                 this.autoResize && this.resize(el);
                 this.$emit(
                     'enter',
-                    this.find(this.currentActive),
+                    this.slot(),
                     this.find(this.lastSlide)
                 );
             });
@@ -210,7 +232,7 @@ export default {
         onAfterEnter(el) {
             this.$emit(
                 'after-enter',
-                this.find(this.currentActive),
+                this.slot(),
                 this.find(this.lastSlide)
             );
         },
@@ -218,7 +240,7 @@ export default {
         onLeave(el) {
             this.$emit(
                 'leave',
-                this.find(this.currentActive),
+                this.slot(),
                 this.find(this.lastSlide)
             );
         },
@@ -230,7 +252,7 @@ export default {
                 this.maxHeight = null;
                 this.$emit(
                     'before-leave',
-                    this.find(this.currentActive),
+                    this.slot(),
                     this.find(this.lastSlide)
                 );
             });
