@@ -185,8 +185,13 @@ export default {
                     return !!vnode.tag;
                 })
                 .map((slot, key) => {
-                    Object.assign(slot.componentOptions.propsData, this.props);
-                    Object.assign(slot.data.attrs, this.attrs);
+                    slot.componentOptions.propsData = Object.assign(
+                        {}, slot.componentOptions.propsData, this.props
+                    );
+                    
+                    slot.data.attrs = Object.assign(
+                        {}, slot.data.attrs, this.attrs
+                    );
             
                     return Object.assign(slot, {
                         key
