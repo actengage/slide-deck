@@ -1,6 +1,6 @@
 {
   "name": "@vue-interface/slide-deck",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Vue slide deck component.",
   "files": [
     "index.js",
