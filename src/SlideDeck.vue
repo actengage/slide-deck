@@ -11,7 +11,7 @@
                 @leave="onLeave"
                 @after-leave="onAfterLeave">
                 <keep-alive>
-                    <slide :key="currentActive" :node="find(currentActive)" />
+                    <slide ref="slide" :key="currentActive" :node="find(currentActive)" />
                 </keep-alive>
             </transition>
         </div>
@@ -142,7 +142,7 @@ export default {
         },
 
         key(vnode) {
-            return vnode.data && vnode.data.key || vnode.key;
+            return vnode.data && vnode.data.key || vnode.key || vnode;
         },
 
         goto(key) {
@@ -185,13 +185,17 @@ export default {
                     return !!vnode.tag;
                 })
                 .map((slot, key) => {
-                    slot.componentOptions.propsData = Object.assign(
-                        {}, slot.componentOptions.propsData, this.props
-                    );
+                    if(slot.componentOptions) {
+                        slot.componentOptions.propsData = Object.assign(
+                            {}, slot.componentOptions.propsData, this.props
+                        );
+                    }
                     
-                    slot.data.attrs = Object.assign(
-                        {}, slot.data.attrs, this.attrs
-                    );
+                    if(slot.data) {
+                        slot.data.attrs = Object.assign(
+                            {}, slot.data.attrs, this.attrs
+                        );
+                    }
             
                     return Object.assign(slot, {
                         key
