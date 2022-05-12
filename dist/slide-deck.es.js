@@ -206,11 +206,17 @@ const __vue2_script = {
       return this.slots()[this.findIndex(key)];
     },
     key(vnode) {
-      return vnode.data && vnode.data.key || vnode.key || vnode;
+      if (vnode.data && typeof vnode.data.key !== "undefined") {
+        return vnode.data.key;
+      }
+      if (typeof vnode.key !== "undefined") {
+        return vnode.key;
+      }
+      return vnode;
     },
     goto(key) {
       if (!this.sliding) {
-        this.currentActive = this.findIndex(this.key(key));
+        this.currentActive = Math.max(0, this.findIndex(this.key(key)));
       }
     },
     next() {

@@ -80,6 +80,12 @@ export default {
     color: currentColor;
 }
 
+.slide-deck-controls.absolute {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
 .slide-deck-controls .slide-deck-control-icon {
     font-size: 2em;
     padding: .25em .15em;

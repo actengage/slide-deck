@@ -22,7 +22,7 @@
                 ref="controls"
                 v-bind="this"
                 :slots="slots()"
-                :active="currentActive" 
+                :active="currentActive"
                 @click="onClickControl">
                 <template #default="context">
                     <slot name="bullet" v-bind="context" />
@@ -142,12 +142,20 @@ export default {
         },
 
         key(vnode) {
-            return vnode.data && vnode.data.key || vnode.key || vnode;
+            if(vnode.data && typeof vnode.data.key !== 'undefined') {
+                return vnode.data.key;
+            }
+
+            if(typeof vnode.key !== 'undefined') {
+                return vnode.key;
+            }
+
+            return vnode;
         },
 
         goto(key) {
             if(!this.sliding) {
-                this.currentActive = this.findIndex(this.key(key));
+                this.currentActive = Math.max(0, this.findIndex(this.key(key)));
             }
         },
 
@@ -320,11 +328,5 @@ export default {
 .slide-deck .slide-backward-enter-to,
 .slide-deck .slide-backward-leave-to { 
     transform: translateX(100%);
-}
-
-.slide-deck-controls {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
 }
 </style>
