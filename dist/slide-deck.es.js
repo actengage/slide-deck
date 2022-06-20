@@ -280,7 +280,7 @@ const __vue2_script = {
       this.sliding = false;
       this.$nextTick(() => {
         this.maxHeight = null;
-        this.$emit("before-leave", this.slot(), this.find(this.lastSlide));
+        this.$emit("after-leave", this.slot(), this.find(this.lastSlide));
       });
     }
   }
