@@ -111,7 +111,6 @@ export default {
                 this.findIndex(oldValue) > this.findIndex(value)
             ) ? 'backward' : 'forward';
         }
-
     },
     
     mounted() {
@@ -268,7 +267,7 @@ export default {
             this.$nextTick(() => {
                 this.maxHeight = null;
                 this.$emit(
-                    'before-leave',
+                    'after-leave',
                     this.slot(),
                     this.find(this.lastSlide)
                 );
