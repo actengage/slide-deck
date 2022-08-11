@@ -1,5 +1,7 @@
 
 <script>
+import { h } from 'vue';
+
 export default {
 
     name: 'Slide',
@@ -19,19 +21,21 @@ export default {
      * that isn't attached to the parent DOM.
      */
     beforeDestroy() {
-        delete this.node.elm;
+        delete this.node.el;
     },
 
     /**
      * Dispatch the 'enter' event on the node element.
      */
     mounted() {
-        this.node.elm.dispatchEvent(new Event('enter'));
+        if(this.node) {
+            this.node.el.dispatchEvent(new Event('enter'));
+        }
     },
 
-    render(createElement) {        
-        return createElement('div', {
-            staticClass: 'slide-deck-slide',
+    render() {        
+        return h('div', {
+            class: 'slide-deck-slide',
         }, [this.node]);
     }
 

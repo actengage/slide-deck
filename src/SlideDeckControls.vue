@@ -1,8 +1,6 @@
 <template>
     <div class="slide-deck-controls">
         <a
-            v-for="(slide, index) in slots"
-            :key="index"
             href="#"
             class="slide-deck-control-icon"
             :class="{'is-active': isActive(slide, index)}"

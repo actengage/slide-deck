@@ -1,98 +1,27 @@
-function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
-  var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
-  if (render2) {
-    options.render = render2;
-    options.staticRenderFns = staticRenderFns2;
-    options._compiled = true;
-  }
-  if (functionalTemplate) {
-    options.functional = true;
-  }
-  if (scopeId) {
-    options._scopeId = "data-v-" + scopeId;
-  }
-  var hook;
-  if (moduleIdentifier) {
-    hook = function(context) {
-      context = context || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext;
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
-        context = __VUE_SSR_CONTEXT__;
-      }
-      if (injectStyles) {
-        injectStyles.call(this, context);
-      }
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier);
-      }
-    };
-    options._ssrRegister = hook;
-  } else if (injectStyles) {
-    hook = shadowMode ? function() {
-      injectStyles.call(this, (options.functional ? this.parent : this).$root.$options.shadowRoot);
-    } : injectStyles;
-  }
-  if (hook) {
-    if (options.functional) {
-      options._injectStyles = hook;
-      var originalRender = options.render;
-      options.render = function renderWithStyleInjection(h, context) {
-        hook.call(context);
-        return originalRender(h, context);
-      };
-    } else {
-      var existing = options.beforeCreate;
-      options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-    }
-  }
-  return {
-    exports: scriptExports,
-    options
-  };
-}
-const __vue2_script$2 = {
+import { h as A, openBlock as o, createElementBlock as f, createElementVNode as v, normalizeClass as h, withModifiers as x, renderSlot as r, normalizeProps as m, guardReactiveProps as k, createTextVNode as y, resolveComponent as a, normalizeStyle as S, createVNode as C, Transition as E, withCtx as u, createBlock as d, KeepAlive as b, createCommentVNode as B } from "vue";
+const L = {
   name: "Slide",
   props: {
     node: Object
   },
   beforeDestroy() {
-    delete this.node.elm;
+    delete this.node.el;
   },
   mounted() {
-    this.node.elm.dispatchEvent(new Event("enter"));
+    this.node && this.node.el.dispatchEvent(new Event("enter"));
   },
-  render(createElement) {
-    return createElement("div", {
-      staticClass: "slide-deck-slide"
+  render() {
+    return A("div", {
+      class: "slide-deck-slide"
     }, [this.node]);
   }
 };
-let __vue2_render, __vue2_staticRenderFns;
-const __cssModules$2 = {};
-var __component__$2 = /* @__PURE__ */ normalizeComponent(__vue2_script$2, __vue2_render, __vue2_staticRenderFns, false, __vue2_injectStyles$2, null, null, null);
-function __vue2_injectStyles$2(context) {
-  for (let o in __cssModules$2) {
-    this[o] = __cssModules$2[o];
-  }
-}
-var Slide = /* @__PURE__ */ function() {
-  return __component__$2.exports;
-}();
-var render$1 = function() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c("div", { staticClass: "slide-deck-controls" }, _vm._l(_vm.slots, function(slide, index) {
-    return _c("a", { key: index, staticClass: "slide-deck-control-icon", class: { "is-active": _vm.isActive(slide, index) }, attrs: { "href": "#" }, on: { "click": function($event) {
-      $event.preventDefault();
-      return _vm.onClick($event, slide);
-    } } }, [_vm._t("default", function() {
-      return [_vm._v("\u2022")];
-    }, null, Object.assign({ slide, index }, _vm.context))], 2);
-  }), 0);
-};
-var staticRenderFns$1 = [];
-var SlideDeckControls_vue_vue_type_style_index_0_lang = "";
-const __vue2_script$1 = {
+const p = (e, t) => {
+  const n = e.__vccOpts || e;
+  for (const [l, i] of t)
+    n[l] = i;
+  return n;
+}, z = {
   props: {
     active: {
       type: [String, Number],
@@ -100,7 +29,7 @@ const __vue2_script$1 = {
     },
     slots: {
       type: Array,
-      required: true
+      required: !0
     }
   },
   computed: {
@@ -109,51 +38,35 @@ const __vue2_script$1 = {
     }
   },
   methods: {
-    key(vnode) {
-      return vnode.data ? vnode.data.key : vnode.key;
+    key(e) {
+      return e.data ? e.data.key : e.key;
     },
-    isActive(vnode, i) {
-      if (this.key(vnode) === this.active) {
-        return true;
-      }
-      if (i === this.active) {
-        return true;
-      }
-      return false;
+    isActive(e, t) {
+      return this.key(e) === this.active || t === this.active;
     },
-    onClick(event, slide) {
-      this.$emit("click", event, slide);
+    onClick(e, t) {
+      this.$emit("click", e, t);
     }
   }
-};
-const __cssModules$1 = {};
-var __component__$1 = /* @__PURE__ */ normalizeComponent(__vue2_script$1, render$1, staticRenderFns$1, false, __vue2_injectStyles$1, null, null, null);
-function __vue2_injectStyles$1(context) {
-  for (let o in __cssModules$1) {
-    this[o] = __cssModules$1[o];
-  }
+}, w = { class: "slide-deck-controls" }, I = /* @__PURE__ */ y("\u2022");
+function O(e, t, n, l, i, s) {
+  return o(), f("div", w, [
+    v("a", {
+      href: "#",
+      class: h(["slide-deck-control-icon", { "is-active": s.isActive(e.slide, e.index) }]),
+      onClick: t[0] || (t[0] = x((c) => s.onClick(c, e.slide), ["prevent"]))
+    }, [
+      r(e.$slots, "default", m(k(Object.assign({ slide: e.slide, index: e.index }, s.context))), () => [
+        I
+      ])
+    ], 2)
+  ]);
 }
-var SlideDeckControls = /* @__PURE__ */ function() {
-  return __component__$1.exports;
-}();
-var render = function() {
-  var _obj;
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c("div", { staticClass: "slide-deck", class: { sliding: _vm.sliding } }, [_vm._t("top", null, { "active": _vm.currentActive }, this), _c("div", { ref: "content", staticClass: "slide-deck-content", class: (_obj = {}, _obj[_vm.direction] = true, _obj), style: { maxHeight: _vm.maxHeight } }, [_c("transition", { attrs: { "name": "slide-" + _vm.direction }, on: { "before-enter": _vm.onBeforeEnter, "enter": _vm.onEnter, "after-enter": _vm.onAfterEnter, "before-leave": _vm.onBeforeLeave, "leave": _vm.onLeave, "after-leave": _vm.onAfterLeave } }, [_c("keep-alive", [_c("slide", { key: _vm.currentActive, ref: "slide", attrs: { "node": _vm.find(_vm.currentActive) } })], 1)], 1)], 1), _vm._t("middle", null, { "active": _vm.currentActive }, this), _vm._t("controls", function() {
-    return [_vm.controls && _vm.mounted ? _c("slide-deck-controls", _vm._b({ ref: "controls", attrs: { "slots": _vm.slots(), "active": _vm.currentActive }, on: { "click": _vm.onClickControl }, scopedSlots: _vm._u([{ key: "default", fn: function(context) {
-      return [_vm._t("bullet", null, null, context)];
-    } }], null, true) }, "slide-deck-controls", this, false)) : _vm._e()];
-  }, { "active": _vm.currentActive }, this), _vm._t("bottom", null, { "active": _vm.currentActive }, this)], 2);
-};
-var staticRenderFns = [];
-var SlideDeck_vue_vue_type_style_index_0_lang = "";
-const __vue2_script = {
+const j = /* @__PURE__ */ p(z, [["render", O]]), D = {
   name: "SlideDeck",
   components: {
-    Slide,
-    SlideDeckControls
+    Slide: L,
+    SlideDeckControls: j
   },
   props: {
     attrs: Object,
@@ -163,7 +76,7 @@ const __vue2_script = {
     },
     autoResize: {
       type: Boolean,
-      default: true
+      default: !0
     },
     controls: Boolean,
     props: Object
@@ -173,126 +86,173 @@ const __vue2_script = {
       currentActive: this.active,
       direction: "forward",
       maxHeight: null,
-      mounted: false,
+      mounted: !1,
       lastSlide: null,
-      sliding: false
+      sliding: !1
     };
   },
   watch: {
-    currentActive(value, oldValue) {
-      this.lastSlide = oldValue;
-      this.direction = this.findIndex(oldValue) > this.findIndex(value) ? "backward" : "forward";
+    currentActive(e, t) {
+      this.lastSlide = t, this.direction = this.findIndex(t) > this.findIndex(e) ? "backward" : "forward";
     }
   },
   mounted() {
     this.$nextTick(() => {
-      this.mounted = true;
-      this.$emit("enter", this.slot());
+      this.mounted = !0, this.$emit("enter", this.slot());
     });
   },
   methods: {
-    findIndex(key) {
-      return this.slots().findIndex((vnode, i) => {
-        if (this.key(vnode) === key) {
-          return true;
-        }
-        if (i === key) {
-          return true;
-        }
-        return false;
-      });
+    findIndex(e) {
+      return this.slots().findIndex((t, n) => this.key(t) === e || n === e);
     },
-    find(key) {
-      return this.slots()[this.findIndex(key)];
+    find(e) {
+      return this.slots()[this.findIndex(e)];
     },
-    key(vnode) {
-      if (vnode.data && typeof vnode.data.key !== "undefined") {
-        return vnode.data.key;
-      }
-      if (typeof vnode.key !== "undefined") {
-        return vnode.key;
-      }
-      return vnode;
+    first() {
+      this.goto(0);
     },
-    goto(key) {
-      if (!this.sliding) {
-        this.currentActive = Math.max(0, this.findIndex(this.key(key)));
-      }
+    last() {
+      this.goto(this.slots().length - 1);
+    },
+    key(e) {
+      return e.key;
+    },
+    goto(e) {
+      this.sliding || (this.currentActive = Math.max(0, e));
     },
     next() {
-      if (!this.sliding) {
-        this.currentActive = Math.min(this.findIndex(this.currentActive) + 1, this.slots().length - 1);
-      }
+      this.sliding || (this.currentActive = Math.min(
+        this.findIndex(this.currentActive) + 1,
+        this.slots().length - 1
+      ));
     },
     prev() {
-      if (!this.sliding) {
-        this.currentActive = Math.max(this.findIndex(this.currentActive) - 1, 0);
-      }
+      this.sliding || (this.currentActive = Math.max(
+        this.findIndex(this.currentActive) - 1,
+        0
+      ));
     },
-    resize(el) {
-      const height = getComputedStyle(el).height;
-      this.maxHeight = height === "0x" ? this.maxHeight : height;
+    resize(e) {
+      const t = getComputedStyle(e).height;
+      this.maxHeight = t === "0x" ? this.maxHeight : t;
     },
     slot() {
       return this.find(this.currentActive);
     },
     slots() {
-      return (this.$slots.default || this.$scopedSlots.default(this)).filter((vnode) => {
-        return !!vnode.tag;
-      }).map((slot, key) => {
-        if (slot.componentOptions) {
-          slot.componentOptions.propsData = Object.assign({}, slot.componentOptions.propsData, this.props);
-        }
-        if (slot.data) {
-          slot.data.attrs = Object.assign({}, slot.data.attrs, this.attrs);
-        }
-        return Object.assign(slot, {
-          key
-        });
+      return (this.$slots.default(this) || this.$scopedSlots.default(this)).map((e, t) => (e.props = Object.assign(
+        {},
+        e.props,
+        this.props,
+        this.attrs
+      ), Object.assign(e, {
+        key: t
+      })));
+    },
+    onClickControl(e, t) {
+      this.sliding || this.goto(t);
+    },
+    onBeforeLeave(e) {
+      this.autoResize && this.resize(e), this.$emit(
+        "before-leave",
+        this.slot(),
+        this.find(this.lastSlide)
+      );
+    },
+    onBeforeEnter(e) {
+      this.sliding = !0, this.$emit(
+        "before-enter",
+        this.slot(),
+        this.find(this.lastSlide)
+      );
+    },
+    onEnter(e) {
+      this.$nextTick(() => {
+        this.autoResize && this.resize(e), this.$emit(
+          "enter",
+          this.slot(),
+          this.find(this.lastSlide)
+        );
       });
     },
-    onClickControl(event, vnode) {
-      if (!this.sliding) {
-        this.goto(vnode);
-      }
+    onAfterEnter(e) {
+      this.$emit(
+        "after-enter",
+        this.slot(),
+        this.find(this.lastSlide)
+      );
     },
-    onBeforeLeave(el) {
-      this.autoResize && this.resize(el);
-      this.$emit("before-leave", this.slot(), this.find(this.lastSlide));
+    onLeave(e) {
+      this.$emit(
+        "leave",
+        this.slot(),
+        this.find(this.lastSlide)
+      );
     },
-    onBeforeEnter(el) {
-      this.sliding = true;
-      this.$emit("before-enter", this.slot(), this.find(this.lastSlide));
-    },
-    onEnter(el) {
-      this.$nextTick(() => {
-        this.autoResize && this.resize(el);
-        this.$emit("enter", this.slot(), this.find(this.lastSlide));
-      });
-    },
-    onAfterEnter(el) {
-      this.$emit("after-enter", this.slot(), this.find(this.lastSlide));
-    },
-    onLeave(el) {
-      this.$emit("leave", this.slot(), this.find(this.lastSlide));
-    },
-    onAfterLeave(el) {
-      this.sliding = false;
-      this.$nextTick(() => {
-        this.maxHeight = null;
-        this.$emit("after-leave", this.slot(), this.find(this.lastSlide));
+    onAfterLeave(e) {
+      this.sliding = !1, this.$nextTick(() => {
+        this.maxHeight = null, this.$emit(
+          "after-leave",
+          this.slot(),
+          this.find(this.lastSlide)
+        );
       });
     }
   }
 };
-const __cssModules = {};
-var __component__ = /* @__PURE__ */ normalizeComponent(__vue2_script, render, staticRenderFns, false, __vue2_injectStyles, null, null, null);
-function __vue2_injectStyles(context) {
-  for (let o in __cssModules) {
-    this[o] = __cssModules[o];
-  }
+function H(e, t, n, l, i, s) {
+  const c = a("slide"), g = a("slide-deck-controls");
+  return o(), f("div", {
+    class: h(["slide-deck", { sliding: i.sliding }])
+  }, [
+    r(e.$slots, "top", { active: i.currentActive }),
+    v("div", {
+      ref: "content",
+      class: h(["slide-deck-content", { [i.direction]: !0 }]),
+      style: S({ maxHeight: i.maxHeight })
+    }, [
+      C(E, {
+        name: `slide-${i.direction}`,
+        onBeforeEnter: s.onBeforeEnter,
+        onEnter: s.onEnter,
+        onAfterEnter: s.onAfterEnter,
+        onBeforeLeave: s.onBeforeLeave,
+        onLeave: s.onLeave,
+        onAfterLeave: s.onAfterLeave
+      }, {
+        default: u(() => [
+          (o(), d(b, null, [
+            (o(), d(c, {
+              ref: "slide",
+              key: i.currentActive,
+              node: s.find(i.currentActive)
+            }, null, 8, ["node"]))
+          ], 1024))
+        ]),
+        _: 1
+      }, 8, ["name", "onBeforeEnter", "onEnter", "onAfterEnter", "onBeforeLeave", "onLeave", "onAfterLeave"])
+    ], 6),
+    r(e.$slots, "middle", { active: i.currentActive }),
+    r(e.$slots, "controls", { active: i.currentActive }, () => [
+      n.controls && i.mounted ? (o(), d(g, {
+        key: 0,
+        ref: "controls",
+        slots: s.slots(),
+        active: i.currentActive,
+        onClick: s.onClickControl
+      }, {
+        default: u((_) => [
+          r(e.$slots, "bullet", m(k(_)))
+        ]),
+        _: 3
+      }, 8, ["slots", "active", "onClick"])) : B("", !0)
+    ]),
+    r(e.$slots, "bottom", { active: i.currentActive })
+  ], 2);
 }
-var SlideDeck = /* @__PURE__ */ function() {
-  return __component__.exports;
-}();
-export { Slide, SlideDeck, SlideDeckControls };
+const $ = /* @__PURE__ */ p(D, [["render", H]]);
+export {
+  L as Slide,
+  $ as SlideDeck,
+  j as SlideDeckControls
+};
