@@ -3,9 +3,12 @@ declare const _sfc_main: {
     components: {
         Slide: {
             props: {
-                node: ObjectConstructor;
+                node: {
+                    type: ObjectConstructor;
+                    required: boolean;
+                };
             };
-            beforeDestroy(): void;
+            beforeUnmount(): void;
             mounted(): void;
             render(): VNode<import("vue").RendererNode, import("vue").RendererElement, {
                 [key: string]: any;
@@ -39,7 +42,10 @@ declare const _sfc_main: {
         /**
          * Additional attributes to be passed to the slots.
          */
-        attrs: ObjectConstructor;
+        attrs: {
+            type: ObjectConstructor;
+            default: () => {};
+        };
         /**
          * The slide key or index that should show.
          */

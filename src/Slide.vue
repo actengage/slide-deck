@@ -1,5 +1,4 @@
-
-<script lang="ts">
+<style lang="ts">
 import { h } from 'vue';
 
 export default {
@@ -8,7 +7,10 @@ export default {
         /**
          * The vnode object.
          */
-        node: Object
+        node: {
+            type: Object,
+            required: true
+        }
     },
 
     /**
@@ -16,7 +18,7 @@ export default {
      * elm will not get recreated again on mount, and results in a DOM element
      * that isn't attached to the parent DOM.
      */
-    beforeDestroy(): void {
+    beforeUnmount(): void {
         delete this.node.el;
     },
 

@@ -3,14 +3,17 @@ declare const _sfc_main: {
         /**
          * The vnode object.
          */
-        node: ObjectConstructor;
+        node: {
+            type: ObjectConstructor;
+            required: boolean;
+        };
     };
     /**
      * Before destroy must delete the `elm` property from the node or else the
      * elm will not get recreated again on mount, and results in a DOM element
      * that isn't attached to the parent DOM.
      */
-    beforeDestroy(): void;
+    beforeUnmount(): void;
     /**
      * Dispatch the 'enter' event on the node element.
      */

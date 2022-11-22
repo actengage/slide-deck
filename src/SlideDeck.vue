@@ -1,7 +1,15 @@
 <template>
-    <div class="slide-deck" :class="{ sliding }">
-        <slot name="top" :active="currentActive" />
-        <div ref="content" class="slide-deck-content" :class="{ [direction]: true }" :style="{ maxHeight }">
+    <div
+        class="slide-deck"
+        :class="{ sliding }">
+        <slot
+            name="top"
+            :active="currentActive" />
+        <div
+            ref="content"
+            class="slide-deck-content"
+            :class="{ [direction]: true }"
+            :style="{ maxHeight }">
             <transition
                 :name="`slide-${direction}`"
                 @before-enter="onBeforeEnter"
@@ -11,12 +19,19 @@
                 @leave="onLeave"
                 @after-leave="onAfterLeave">
                 <keep-alive>
-                    <slide ref="slide" :key="currentActive" :node="find(currentActive)" />
+                    <slide
+                        ref="slide"
+                        :key="currentActive"
+                        :node="find(currentActive)" />
                 </keep-alive>
             </transition>
         </div>
-        <slot name="middle" :active="currentActive" />
-        <slot name="controls" :active="currentActive">
+        <slot
+            name="middle"
+            :active="currentActive" />
+        <!-- <slot
+            name="controls"
+            :active="currentActive">
             <slide-deck-controls
                 v-if="controls && mounted"
                 ref="controls"
@@ -24,11 +39,15 @@
                 :active="currentActive"
                 @click="onClickControl">
                 <template #default="context">
-                    <slot name="bullet" v-bind="context" />
+                    <slot
+                        name="bullet"
+                        v-bind="context" />
                 </template>
             </slide-deck-controls>
-        </slot>
-        <slot name="bottom" :active="currentActive" />
+        </slot> -->
+        <slot
+            name="bottom"
+            :active="currentActive" />
     </div>
 </template>
 
@@ -49,7 +68,10 @@ export default {
         /**
          * Additional attributes to be passed to the slots.
          */
-        attrs: Object,
+        attrs: {
+            type: Object,
+            default: () => ({})
+        },
 
         /**
          * The slide key or index that should show.
@@ -171,7 +193,7 @@ export default {
         },
 
         slots(): VNode[] {
-            return (this.$slots.default(this) || this.$scopedSlots.default(this))
+            return (this.$slots.default(this) || this.$slots.default(this))
                 .map((slot: VNode, key: number) => {
                     slot.props = Object.assign(
                         {}, slot.props, this.props, this.attrs
