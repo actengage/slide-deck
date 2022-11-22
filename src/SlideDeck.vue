@@ -33,13 +33,11 @@
 </template>
 
 <script lang="ts">
-import type { VNode } from 'vue/types';
+import type { VNode } from 'vue';
 import Slide from './Slide.vue';
 import SlideDeckControls from './SlideDeckControls.vue';
 
 export default {
-
-    name: 'SlideDeck',
 
     components: {
         Slide,
@@ -50,26 +48,20 @@ export default {
 
         /**
          * Additional attributes to be passed to the slots.
-         *
-         * @type Boolean
          */
         attrs: Object,
 
         /**
          * The slide key or index that should show.
-         *
-         * @type {String|Number}
          */
         active: {
-            type: [String, Number],
+            type: Number,
             default: 0
         },
 
         /**
          * Automatically resize the height of the slide so it animates from one
          * slide to the next.
-         *
-         * @type {String|Number}
          */
         autoResize: {
             type: Boolean,
@@ -78,15 +70,11 @@ export default {
 
         /**
          * Show the slide-deck controls to change the slide.
-         *
-         * @type Boolean
          */
         controls: Boolean,
 
         /**
          * Additional props to be passed to the slots.
-         *
-         * @type Boolean
          */
         props: Object,
 
@@ -96,7 +84,7 @@ export default {
         return {
             currentActive: this.active,
             direction: 'forward',
-            maxHeight: null,
+            maxHeight: undefined,
             mounted: false,
             lastSlide: null,
             sliding: false,
@@ -105,7 +93,7 @@ export default {
     
     watch: {
 
-        currentActive(value, oldValue) {
+        currentActive(value: number, oldValue: number): void {
             this.lastSlide = oldValue;
             this.direction = (
                 this.findIndex(oldValue) > this.findIndex(value)
@@ -113,7 +101,7 @@ export default {
         }
     },
     
-    mounted() {
+    mounted(): void {
         this.$nextTick(() => {
             this.mounted = true;
             this.$emit('enter', this.slot());
@@ -122,9 +110,9 @@ export default {
 
     methods: {
 
-        findIndex(key: string|number) {
-            return this.slots().findIndex((vnode, i) => {
-                if(this.key(vnode) === key) {
+        findIndex(key: string|number): number {
+            return this.slots().findIndex((vnode: VNode, i: number) => {
+                if(vnode.key === key) {
                     return true;
                 }
                 
@@ -136,7 +124,7 @@ export default {
             });
         },
 
-        find(key: string|number) {
+        find(key: string|number): VNode|undefined {
             return this.slots()[this.findIndex(key)];
         },
 
@@ -146,10 +134,6 @@ export default {
 
         last(): void {
             this.goto(this.slots().length - 1);
-        },
-
-        key(vnode: VNode) {
-            return vnode.key;
         },
 
         goto(key: number): void {
@@ -188,7 +172,7 @@ export default {
 
         slots(): VNode[] {
             return (this.$slots.default(this) || this.$scopedSlots.default(this))
-                .map((slot, key) => {
+                .map((slot: VNode, key: number) => {
                     slot.props = Object.assign(
                         {}, slot.props, this.props, this.attrs
                     );                                        
@@ -199,7 +183,7 @@ export default {
                 });
         },
 
-        onClickControl(e: Event, vnode): void {
+        onClickControl(e: Event, vnode: VNode): void {
             if(!this.sliding) {
                 this.goto(vnode);
             }

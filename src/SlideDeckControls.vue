@@ -3,14 +3,16 @@
         <a
             href="#"
             class="slide-deck-control-icon"
-            :class="{'is-active': isActive(slide, index)}"
+            :class="{'is-active': isActive(slide, active)}"
             @click.prevent="onClick($event, slide)">
-            <slot v-bind="Object.assign({ slide, index }, context)">&bull;</slot>
+            <slot v-bind="Object.assign({ slide, active }, context)">&bull;</slot>
         </a>
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import type { VNode } from 'vue';
+
 export default {
 
     props: {
@@ -21,7 +23,7 @@ export default {
          * @type {Number}
          */
         active: {
-            type: [String, Number],
+            type: Number,
             default: 0
         },
 
@@ -45,12 +47,8 @@ export default {
 
     methods: {
 
-        key(vnode) {
-            return vnode.data ? vnode.data.key : vnode.key;
-        },
-
-        isActive(vnode, i) {
-            if(this.key(vnode) === this.active) {
+        isActive(vnode: VNode, i: number) {
+            if(vnode.key === this.active) {
                 return true;
             }
             
@@ -61,7 +59,7 @@ export default {
             return false;
         },
 
-        onClick(event, slide) {
+        onClick(event: Event, slide: VNode) {
             this.$emit('click', event, slide);
         }
 
