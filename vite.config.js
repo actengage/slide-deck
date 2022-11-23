@@ -1,5 +1,5 @@
 import vue from '@vitejs/plugin-vue';
-import { pascalCase } from "change-case";
+import { pascalCase } from 'change-case';
 import path from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';

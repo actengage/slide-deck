@@ -1,15 +1,3 @@
-<template>
-    <div class="slide-deck-controls">
-        <a
-            href="#"
-            class="slide-deck-control-icon"
-            :class="{'is-active': isActive(slide, active)}"
-            @click.prevent="onClick($event, slide)">
-            <slot v-bind="Object.assign({ slide, active }, context)">&bull;</slot>
-        </a>
-    </div>
-</template>
-
 <script lang="ts">
 import type { VNode } from 'vue';
 
@@ -67,6 +55,18 @@ export default {
 
 };
 </script>
+
+<template>
+    <div class="slide-deck-controls">
+        <a
+            href="#"
+            class="slide-deck-control-icon"
+            :class="{'is-active': isActive(slide, active)}"
+            @click.prevent="onClick($event, slide)">
+            <slot v-bind="Object.assign({ slide, active }, context)">&bull;</slot>
+        </a>
+    </div>
+</template>
 
 <style>
 .slide-deck-controls {

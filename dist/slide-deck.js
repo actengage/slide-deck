@@ -1,70 +1,25 @@
-import { h as v, openBlock as r, createElementBlock as a, createElementVNode as f, normalizeClass as c, withModifiers as m, renderSlot as o, normalizeProps as p, guardReactiveProps as g, createTextVNode as _, resolveComponent as A, normalizeStyle as k, createVNode as x, Transition as y, withCtx as S, createBlock as h, KeepAlive as E } from "vue";
-const b = {
+import { defineComponent as u, onMounted as p, openBlock as s, createElementBlock as f, createBlock as c, resolveDynamicComponent as g, unref as $, resolveComponent as k, normalizeClass as h, renderSlot as o, createElementVNode as v, normalizeStyle as A, createVNode as _, Transition as y, withCtx as S, KeepAlive as E, withModifiers as b, normalizeProps as B, guardReactiveProps as C, createTextVNode as L } from "vue";
+const z = { class: "slide-deck-slide" };
+let n = $ref();
+const x = /* @__PURE__ */ u({
+  __name: "Slide",
   props: {
-    node: {
-      type: Object,
-      required: !0
-    }
+    node: null
   },
-  beforeUnmount() {
-    delete this.node.el;
-  },
-  mounted() {
-    this.node && this.node.el && this.node.el.dispatchEvent(new Event("enter"));
-  },
-  render() {
-    return v("div", {
-      class: "slide-deck-slide"
-    }, [this.node]);
+  setup(e) {
+    return p(() => {
+      var t;
+      (t = n == null ? void 0 : n.el) == null || t.dispatchEvent(new Event("enter"));
+    }), (t, i) => (s(), f("div", z, [
+      (s(), c(g($(n)), {
+        ref_key: "node",
+        ref: n
+      }, null, 512))
+    ]));
   }
-}, B = {
-  props: {
-    active: {
-      type: Number,
-      default: 0
-    },
-    slots: {
-      type: Array,
-      required: !0
-    }
-  },
-  computed: {
-    context() {
-      return this;
-    }
-  },
-  methods: {
-    isActive(e, t) {
-      return e.key === this.active || t === this.active;
-    },
-    onClick(e, t) {
-      this.$emit("click", e, t);
-    }
-  }
-};
-const u = (e, t) => {
-  const n = e.__vccOpts || e;
-  for (const [l, i] of t)
-    n[l] = i;
-  return n;
-}, L = { class: "slide-deck-controls" };
-function C(e, t, n, l, i, s) {
-  return r(), a("div", L, [
-    f("a", {
-      href: "#",
-      class: c(["slide-deck-control-icon", { "is-active": s.isActive(e.slide, n.active) }]),
-      onClick: t[0] || (t[0] = m((d) => s.onClick(d, e.slide), ["prevent"]))
-    }, [
-      o(e.$slots, "default", p(g(Object.assign({ slide: e.slide, active: n.active }, s.context))), () => [
-        _("\u2022")
-      ])
-    ], 2)
-  ]);
-}
-const z = /* @__PURE__ */ u(B, [["render", C]]), $ = {
+}), w = u({
   components: {
-    Slide: b,
-    SlideDeckControls: z
+    Slide: x
   },
   props: {
     attrs: {
@@ -80,8 +35,19 @@ const z = /* @__PURE__ */ u(B, [["render", C]]), $ = {
       default: !0
     },
     controls: Boolean,
-    props: Object
+    props: {
+      type: Object,
+      default: () => ({})
+    }
   },
+  emits: [
+    "before-enter",
+    "enter",
+    "after-enter",
+    "before-leave",
+    "leave",
+    "after-leave"
+  ],
   data() {
     return {
       currentActive: this.active,
@@ -104,7 +70,7 @@ const z = /* @__PURE__ */ u(B, [["render", C]]), $ = {
   },
   methods: {
     findIndex(e) {
-      return this.slots().findIndex((t, n) => t.key === e || n === e);
+      return this.slots().findIndex((t, i) => t.key === e || i === e);
     },
     find(e) {
       return this.slots()[this.findIndex(e)];
@@ -157,7 +123,7 @@ const z = /* @__PURE__ */ u(B, [["render", C]]), $ = {
         this.find(this.lastSlide)
       );
     },
-    onBeforeEnter(e) {
+    onBeforeEnter() {
       this.sliding = !0, this.$emit(
         "before-enter",
         this.slot(),
@@ -173,21 +139,21 @@ const z = /* @__PURE__ */ u(B, [["render", C]]), $ = {
         );
       });
     },
-    onAfterEnter(e) {
+    onAfterEnter() {
       this.$emit(
         "after-enter",
         this.slot(),
         this.find(this.lastSlide)
       );
     },
-    onLeave(e) {
+    onLeave() {
       this.$emit(
         "leave",
         this.slot(),
         this.find(this.lastSlide)
       );
     },
-    onAfterLeave(e) {
+    onAfterLeave() {
       this.sliding = !1, this.$nextTick(() => {
         this.maxHeight = null, this.$emit(
           "after-leave",
@@ -197,46 +163,91 @@ const z = /* @__PURE__ */ u(B, [["render", C]]), $ = {
       });
     }
   }
+});
+const m = (e, t) => {
+  const i = e.__vccOpts || e;
+  for (const [l, a] of t)
+    i[l] = a;
+  return i;
 };
-function w(e, t, n, l, i, s) {
-  const d = A("slide");
-  return r(), a("div", {
-    class: c(["slide-deck", { sliding: i.sliding }])
+function I(e, t, i, l, a, r) {
+  const d = k("slide");
+  return s(), f("div", {
+    class: h(["slide-deck", { sliding: e.sliding }])
   }, [
-    o(e.$slots, "top", { active: i.currentActive }),
-    f("div", {
+    o(e.$slots, "top", { active: e.currentActive }),
+    v("div", {
       ref: "content",
-      class: c(["slide-deck-content", { [i.direction]: !0 }]),
-      style: k({ maxHeight: i.maxHeight })
+      class: h(["slide-deck-content", { [e.direction]: !0 }]),
+      style: A({ maxHeight: e.maxHeight })
     }, [
-      x(y, {
-        name: `slide-${i.direction}`,
-        onBeforeEnter: s.onBeforeEnter,
-        onEnter: s.onEnter,
-        onAfterEnter: s.onAfterEnter,
-        onBeforeLeave: s.onBeforeLeave,
-        onLeave: s.onLeave,
-        onAfterLeave: s.onAfterLeave
+      _(y, {
+        name: `slide-${e.direction}`,
+        onBeforeEnter: e.onBeforeEnter,
+        onEnter: e.onEnter,
+        onAfterEnter: e.onAfterEnter,
+        onBeforeLeave: e.onBeforeLeave,
+        onLeave: e.onLeave,
+        onAfterLeave: e.onAfterLeave
       }, {
         default: S(() => [
-          (r(), h(E, null, [
-            (r(), h(d, {
+          (s(), c(E, null, [
+            (s(), c(d, {
               ref: "slide",
-              key: i.currentActive,
-              node: s.find(i.currentActive)
+              key: e.currentActive,
+              node: e.find(e.currentActive)
             }, null, 8, ["node"]))
           ], 1024))
         ]),
         _: 1
       }, 8, ["name", "onBeforeEnter", "onEnter", "onAfterEnter", "onBeforeLeave", "onLeave", "onAfterLeave"])
     ], 6),
-    o(e.$slots, "middle", { active: i.currentActive }),
-    o(e.$slots, "bottom", { active: i.currentActive })
+    o(e.$slots, "middle", { active: e.currentActive }),
+    o(e.$slots, "bottom", { active: e.currentActive })
   ], 2);
 }
-const O = /* @__PURE__ */ u($, [["render", w]]);
+const M = /* @__PURE__ */ m(w, [["render", I]]), H = {
+  props: {
+    active: {
+      type: Number,
+      default: 0
+    },
+    slots: {
+      type: Array,
+      required: !0
+    }
+  },
+  computed: {
+    context() {
+      return this;
+    }
+  },
+  methods: {
+    isActive(e, t) {
+      return e.key === this.active || t === this.active;
+    },
+    onClick(e, t) {
+      this.$emit("click", e, t);
+    }
+  }
+};
+const O = { class: "slide-deck-controls" };
+function j(e, t, i, l, a, r) {
+  return s(), f("div", O, [
+    v("a", {
+      href: "#",
+      class: h(["slide-deck-control-icon", { "is-active": r.isActive(e.slide, i.active) }]),
+      onClick: t[0] || (t[0] = b((d) => r.onClick(d, e.slide), ["prevent"]))
+    }, [
+      o(e.$slots, "default", B(C(Object.assign({ slide: e.slide, active: i.active }, r.context))), () => [
+        L("\u2022")
+      ])
+    ], 2)
+  ]);
+}
+const N = /* @__PURE__ */ m(H, [["render", j]]);
 export {
-  b as Slide,
-  O as SlideDeck,
-  z as SlideDeckControls
+  x as Slide,
+  M as SlideDeck,
+  N as SlideDeckControls
 };

@@ -1,66 +1,13 @@
-<template>
-    <div
-        class="slide-deck"
-        :class="{ sliding }">
-        <slot
-            name="top"
-            :active="currentActive" />
-        <div
-            ref="content"
-            class="slide-deck-content"
-            :class="{ [direction]: true }"
-            :style="{ maxHeight }">
-            <transition
-                :name="`slide-${direction}`"
-                @before-enter="onBeforeEnter"
-                @enter="onEnter"
-                @after-enter="onAfterEnter"
-                @before-leave="onBeforeLeave"
-                @leave="onLeave"
-                @after-leave="onAfterLeave">
-                <keep-alive>
-                    <slide
-                        ref="slide"
-                        :key="currentActive"
-                        :node="find(currentActive)" />
-                </keep-alive>
-            </transition>
-        </div>
-        <slot
-            name="middle"
-            :active="currentActive" />
-        <!-- <slot
-            name="controls"
-            :active="currentActive">
-            <slide-deck-controls
-                v-if="controls && mounted"
-                ref="controls"
-                :slots="slots()"
-                :active="currentActive"
-                @click="onClickControl">
-                <template #default="context">
-                    <slot
-                        name="bullet"
-                        v-bind="context" />
-                </template>
-            </slide-deck-controls>
-        </slot> -->
-        <slot
-            name="bottom"
-            :active="currentActive" />
-    </div>
-</template>
-
 <script lang="ts">
-import type { VNode } from 'vue';
+import { defineComponent, VNode } from 'vue';
 import Slide from './Slide.vue';
-import SlideDeckControls from './SlideDeckControls.vue';
+// import SlideDeckControls from './SlideDeckControls.vue';
 
-export default {
+export default defineComponent({
 
     components: {
         Slide,
-        SlideDeckControls
+        // SlideDeckControls
     },
 
     props: {
@@ -98,9 +45,20 @@ export default {
         /**
          * Additional props to be passed to the slots.
          */
-        props: Object,
-
+        props: {
+            type: Object,
+            default: () => ({})
+        }
     },
+
+    emits: [
+        'before-enter',
+        'enter',
+        'after-enter',
+        'before-leave',
+        'leave',
+        'after-leave'
+    ],
 
     data() {
         return {
@@ -220,7 +178,7 @@ export default {
             );
         },
 
-        onBeforeEnter(el: HTMLElement): void {
+        onBeforeEnter(): void {
             this.sliding = true;
             this.$emit(
                 'before-enter',
@@ -240,7 +198,7 @@ export default {
             });
         },
 
-        onAfterEnter(el: HTMLElement): void {
+        onAfterEnter(): void {
             this.$emit(
                 'after-enter',
                 this.slot(),
@@ -248,7 +206,7 @@ export default {
             );
         },
 
-        onLeave(el: HTMLElement): void {
+        onLeave(): void {
             this.$emit(
                 'leave',
                 this.slot(),
@@ -256,7 +214,7 @@ export default {
             );
         },
 
-        onAfterLeave(el: HTMLElement): void {
+        onAfterLeave(): void {
             this.sliding = false;
 
             this.$nextTick(() => {
@@ -271,8 +229,61 @@ export default {
 
     }
 
-};
+});
 </script>
+
+<template>
+    <div
+        class="slide-deck"
+        :class="{ sliding }">
+        <slot
+            name="top"
+            :active="currentActive" />
+        <div
+            ref="content"
+            class="slide-deck-content"
+            :class="{ [direction]: true }"
+            :style="{ maxHeight }">
+            <transition
+                :name="`slide-${direction}`"
+                @before-enter="onBeforeEnter"
+                @enter="onEnter"
+                @after-enter="onAfterEnter"
+                @before-leave="onBeforeLeave"
+                @leave="onLeave"
+                @after-leave="onAfterLeave">
+                <keep-alive>
+                    <slide
+                        ref="slide"
+                        :key="currentActive"
+                        :node="find(currentActive)" />
+                </keep-alive>
+            </transition>
+        </div>
+        <slot
+            name="middle"
+            :active="currentActive" />
+        <!-- <slot
+            name="controls"
+            :active="currentActive">
+            <slide-deck-controls
+                v-if="controls && mounted"
+                ref="controls"
+                :slots="slots()"
+                :active="currentActive"
+                @click="onClickControl">
+                <template #default="context">
+                    <slot
+                        name="bullet"
+                        v-bind="context" />
+                </template>
+            </slide-deck-controls>
+        </slot> -->
+        <slot
+            name="bottom"
+            :active="currentActive" />
+    </div>
+</template>
 
 <style>
 .slide-deck {

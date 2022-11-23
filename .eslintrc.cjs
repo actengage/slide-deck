@@ -8,6 +8,15 @@ module.exports = {
         '@vue/eslint-config-typescript'
     ],
     rules: {
+        '@typescript-eslint/indent': ['error'],
+        'indent': 0,
+        'object-curly-spacing': ['error', 'always'],
+        'semi': [2, 'always'],
+        'space-before-blocks': ['error', 'always'],
+        'quotes': [2, 'single', { 'avoidEscape': true }],
+        'vue/component-tags-order': ['error', {
+            'order': ['script', 'template', 'style']
+        }],
         'vue/multi-word-component-names': 0,
         'vue/html-indent': ['error', 4, {
             'attribute': 1,
@@ -29,10 +38,5 @@ module.exports = {
                 'for': { 'after': false },
             }
         }],
-        'indent': ['error', 4],
-        'object-curly-spacing': ['error', 'always'],
-        'semi': [2, 'always'],
-        'space-before-blocks': ['error', 'always'],
-        'quotes': [2, 'single', { 'avoidEscape': true }],
     }
 };

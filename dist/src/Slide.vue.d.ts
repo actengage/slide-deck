@@ -1,25 +1,17 @@
-declare const _sfc_main: {
-    props: {
-        /**
-         * The vnode object.
-         */
-        node: {
-            type: ObjectConstructor;
-            required: boolean;
-        };
+import { VNode } from 'vue';
+declare const _sfc_main: import("vue").DefineComponent<{
+    node: {
+        type: null;
+        required: false;
     };
-    /**
-     * Before destroy must delete the `elm` property from the node or else the
-     * elm will not get recreated again on mount, and results in a DOM element
-     * that isn't attached to the parent DOM.
-     */
-    beforeUnmount(): void;
-    /**
-     * Dispatch the 'enter' event on the node element.
-     */
-    mounted(): void;
-    render(): import("vue").VNode<import("vue").RendererNode, import("vue").RendererElement, {
+}, {
+    node: import("vue/macros").ReactiveVariable<VNode<import("vue").RendererNode, import("vue").RendererElement, {
         [key: string]: any;
-    }>;
-};
+    }>> | undefined;
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    node: {
+        type: null;
+        required: false;
+    };
+}>>, {}>;
 export default _sfc_main;
