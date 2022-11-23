@@ -48,6 +48,14 @@ export default defineComponent({
         props: {
             type: Object,
             default: () => ({})
+        },
+
+        /**
+         * Pass the slots as a prop instead of using <slot />.
+         */
+        slots: {
+            type: Array,
+            default: undefined
         }
     },
 
@@ -91,7 +99,7 @@ export default defineComponent({
     methods: {
 
         findIndex(key: string|number): number {
-            return this.slots().findIndex((vnode: VNode, i: number) => {
+            return this.vnodes().findIndex((vnode: VNode, i: number) => {
                 if(vnode.key === key) {
                     return true;
                 }
@@ -105,7 +113,7 @@ export default defineComponent({
         },
 
         find(key: string|number): VNode|undefined {
-            return this.slots()[this.findIndex(key)];
+            return this.vnodes()[this.findIndex(key)];
         },
 
         first(): void {
@@ -113,7 +121,7 @@ export default defineComponent({
         },
 
         last(): void {
-            this.goto(this.slots().length - 1);
+            this.goto(this.vnodes().length - 1);
         },
 
         goto(key: number): void {
@@ -125,7 +133,7 @@ export default defineComponent({
         next(): void {
             if(!this.sliding) {
                 this.currentActive = Math.min(
-                    this.findIndex(this.currentActive) + 1, this.slots().length - 1
+                    this.findIndex(this.currentActive) + 1, this.vnodes().length - 1
                 );
             }
         },
@@ -150,8 +158,8 @@ export default defineComponent({
             return this.find(this.currentActive);
         },
 
-        slots(): VNode[] {
-            return (this.$slots.default(this) || this.$slots.default(this))
+        vnodes(): VNode[] {
+            return (this.slots || this.$slots.default(this))
                 .map((slot: VNode, key: number) => {
                     slot.props = Object.assign(
                         {}, slot.props, this.props, this.attrs

@@ -9,6 +9,7 @@ const fileName = name.split('/')[1];
 
 export default defineConfig({
     build: {
+        sourcemap: process.env.NODE_ENV === 'production',
         lib: {
             entry: path.resolve(__dirname, 'index.ts'),
             name: pascalCase(fileName),
@@ -30,7 +31,9 @@ export default defineConfig({
         }
     },
     plugins: [
-        vue(),
+        vue({
+            reactivityTransform: true
+        }),
         dts(),
     ]
 });

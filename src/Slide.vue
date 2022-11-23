@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, VNode } from 'vue';
 
-defineProps<{
+const props = defineProps<{
     node?: VNode
 }>();
 
@@ -17,7 +17,7 @@ let node = $ref<VNode>();
 <template>
     <div class="slide-deck-slide">
         <component
-            :is="node"
+            :is="props.node"
             ref="node" />
     </div>
 </template>

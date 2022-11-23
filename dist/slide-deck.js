@@ -1,19 +1,20 @@
-import { defineComponent as u, onMounted as p, openBlock as s, createElementBlock as f, createBlock as c, resolveDynamicComponent as g, unref as $, resolveComponent as k, normalizeClass as h, renderSlot as o, createElementVNode as v, normalizeStyle as A, createVNode as _, Transition as y, withCtx as S, KeepAlive as E, withModifiers as b, normalizeProps as B, guardReactiveProps as C, createTextVNode as L } from "vue";
+import { ref as p, defineComponent as u, onMounted as g, openBlock as n, createElementBlock as h, createBlock as a, resolveDynamicComponent as A, resolveComponent as k, normalizeClass as c, renderSlot as o, createElementVNode as v, normalizeStyle as $, createVNode as y, Transition as _, withCtx as S, KeepAlive as E, withModifiers as b, normalizeProps as B, guardReactiveProps as C, createTextVNode as L } from "vue";
 const z = { class: "slide-deck-slide" };
-let n = $ref();
+let f = p();
 const x = /* @__PURE__ */ u({
   __name: "Slide",
   props: {
     node: null
   },
   setup(e) {
-    return p(() => {
-      var t;
-      (t = n == null ? void 0 : n.el) == null || t.dispatchEvent(new Event("enter"));
-    }), (t, i) => (s(), f("div", z, [
-      (s(), c(g($(n)), {
+    const t = e;
+    return g(() => {
+      var i, s;
+      (s = (i = f.value) == null ? void 0 : i.el) == null || s.dispatchEvent(new Event("enter"));
+    }), (i, s) => (n(), h("div", z, [
+      (n(), a(A(t.node), {
         ref_key: "node",
-        ref: n
+        ref: f
       }, null, 512))
     ]));
   }
@@ -38,6 +39,10 @@ const x = /* @__PURE__ */ u({
     props: {
       type: Object,
       default: () => ({})
+    },
+    slots: {
+      type: Array,
+      default: void 0
     }
   },
   emits: [
@@ -70,16 +75,16 @@ const x = /* @__PURE__ */ u({
   },
   methods: {
     findIndex(e) {
-      return this.slots().findIndex((t, i) => t.key === e || i === e);
+      return this.vnodes().findIndex((t, i) => t.key === e || i === e);
     },
     find(e) {
-      return this.slots()[this.findIndex(e)];
+      return this.vnodes()[this.findIndex(e)];
     },
     first() {
       this.goto(0);
     },
     last() {
-      this.goto(this.slots().length - 1);
+      this.goto(this.vnodes().length - 1);
     },
     goto(e) {
       this.sliding || (this.currentActive = Math.max(0, e));
@@ -87,7 +92,7 @@ const x = /* @__PURE__ */ u({
     next() {
       this.sliding || (this.currentActive = Math.min(
         this.findIndex(this.currentActive) + 1,
-        this.slots().length - 1
+        this.vnodes().length - 1
       ));
     },
     prev() {
@@ -103,8 +108,8 @@ const x = /* @__PURE__ */ u({
     slot() {
       return this.find(this.currentActive);
     },
-    slots() {
-      return (this.$slots.default(this) || this.$slots.default(this)).map((e, t) => (e.props = Object.assign(
+    vnodes() {
+      return (this.slots || this.$slots.default(this)).map((e, t) => (e.props = Object.assign(
         {},
         e.props,
         this.props,
@@ -166,22 +171,22 @@ const x = /* @__PURE__ */ u({
 });
 const m = (e, t) => {
   const i = e.__vccOpts || e;
-  for (const [l, a] of t)
-    i[l] = a;
+  for (const [s, l] of t)
+    i[s] = l;
   return i;
 };
-function I(e, t, i, l, a, r) {
+function I(e, t, i, s, l, r) {
   const d = k("slide");
-  return s(), f("div", {
-    class: h(["slide-deck", { sliding: e.sliding }])
+  return n(), h("div", {
+    class: c(["slide-deck", { sliding: e.sliding }])
   }, [
     o(e.$slots, "top", { active: e.currentActive }),
     v("div", {
       ref: "content",
-      class: h(["slide-deck-content", { [e.direction]: !0 }]),
-      style: A({ maxHeight: e.maxHeight })
+      class: c(["slide-deck-content", { [e.direction]: !0 }]),
+      style: $({ maxHeight: e.maxHeight })
     }, [
-      _(y, {
+      y(_, {
         name: `slide-${e.direction}`,
         onBeforeEnter: e.onBeforeEnter,
         onEnter: e.onEnter,
@@ -191,8 +196,8 @@ function I(e, t, i, l, a, r) {
         onAfterLeave: e.onAfterLeave
       }, {
         default: S(() => [
-          (s(), c(E, null, [
-            (s(), c(d, {
+          (n(), a(E, null, [
+            (n(), a(d, {
               ref: "slide",
               key: e.currentActive,
               node: e.find(e.currentActive)
@@ -232,11 +237,11 @@ const M = /* @__PURE__ */ m(w, [["render", I]]), H = {
   }
 };
 const O = { class: "slide-deck-controls" };
-function j(e, t, i, l, a, r) {
-  return s(), f("div", O, [
+function j(e, t, i, s, l, r) {
+  return n(), h("div", O, [
     v("a", {
       href: "#",
-      class: h(["slide-deck-control-icon", { "is-active": r.isActive(e.slide, i.active) }]),
+      class: c(["slide-deck-control-icon", { "is-active": r.isActive(e.slide, i.active) }]),
       onClick: t[0] || (t[0] = b((d) => r.onClick(d, e.slide), ["prevent"]))
     }, [
       o(e.$slots, "default", B(C(Object.assign({ slide: e.slide, active: i.active }, r.context))), () => [
@@ -251,3 +256,4 @@ export {
   M as SlideDeck,
   N as SlideDeckControls
 };
+//# sourceMappingURL=slide-deck.js.map
