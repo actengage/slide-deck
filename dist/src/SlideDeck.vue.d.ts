@@ -1,5 +1,5 @@
 import { VNode } from 'vue';
-declare const _sfc_main: import('vue').DefineComponent<{
+declare const _sfc_main: import("vue").DefineComponent<{
     /**
      * Additional attributes to be passed to the slots.
      */
@@ -65,7 +65,7 @@ declare const _sfc_main: import('vue').DefineComponent<{
     onAfterEnter(): void;
     onLeave(): void;
     onAfterLeave(): void;
-}, import('vue').ComponentOptionsMixin, import('vue').ComponentOptionsMixin, ('before-enter' | 'enter' | 'after-enter' | 'before-leave' | 'leave' | 'after-leave')[], 'before-enter' | 'enter' | 'after-enter' | 'before-leave' | 'leave' | 'after-leave', import('vue').VNodeProps & import('vue').AllowedComponentProps & import('vue').ComponentCustomProps, Readonly<import('vue').ExtractPropTypes<{
+}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("before-enter" | "enter" | "after-enter" | "before-leave" | "leave" | "after-leave")[], "before-enter" | "enter" | "after-enter" | "before-leave" | "leave" | "after-leave", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     /**
      * Additional attributes to be passed to the slots.
      */
@@ -107,12 +107,12 @@ declare const _sfc_main: import('vue').DefineComponent<{
         default: undefined;
     };
 }>> & {
-    'onBefore-enter'?: ((...args: any[]) => any) | undefined;
+    "onBefore-enter"?: ((...args: any[]) => any) | undefined;
     onEnter?: ((...args: any[]) => any) | undefined;
-    'onAfter-enter'?: ((...args: any[]) => any) | undefined;
-    'onBefore-leave'?: ((...args: any[]) => any) | undefined;
+    "onAfter-enter"?: ((...args: any[]) => any) | undefined;
+    "onBefore-leave"?: ((...args: any[]) => any) | undefined;
     onLeave?: ((...args: any[]) => any) | undefined;
-    'onAfter-leave'?: ((...args: any[]) => any) | undefined;
+    "onAfter-leave"?: ((...args: any[]) => any) | undefined;
 }, {
     props: Record<string, any>;
     attrs: Record<string, any>;
