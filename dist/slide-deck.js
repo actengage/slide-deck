@@ -1,7 +1,7 @@
-import { ref as p, defineComponent as u, onMounted as g, openBlock as n, createElementBlock as h, createBlock as a, resolveDynamicComponent as A, resolveComponent as k, normalizeClass as c, renderSlot as o, createElementVNode as v, normalizeStyle as $, createVNode as y, Transition as _, withCtx as S, KeepAlive as E, withModifiers as b, normalizeProps as B, guardReactiveProps as C, createTextVNode as L } from "vue";
-const z = { class: "slide-deck-slide" };
+import { ref as p, defineComponent as u, onMounted as g, openBlock as n, createElementBlock as h, createBlock as a, resolveDynamicComponent as k, resolveComponent as A, normalizeClass as c, renderSlot as o, createElementVNode as v, normalizeStyle as $, createVNode as y, Transition as _, withCtx as S, KeepAlive as E, withModifiers as b, normalizeProps as B, guardReactiveProps as C, createTextVNode as L } from "vue";
+const x = { class: "slide-deck-slide" };
 let f = p();
-const x = /* @__PURE__ */ u({
+const z = /* @__PURE__ */ u({
   __name: "Slide",
   props: {
     node: null
@@ -11,8 +11,8 @@ const x = /* @__PURE__ */ u({
     return g(() => {
       var i, s;
       (s = (i = f.value) == null ? void 0 : i.el) == null || s.dispatchEvent(new Event("enter"));
-    }), (i, s) => (n(), h("div", z, [
-      (n(), a(A(t.node), {
+    }), (i, s) => (n(), h("div", x, [
+      (n(), a(k(t.node), {
         ref_key: "node",
         ref: f
       }, null, 512))
@@ -20,7 +20,7 @@ const x = /* @__PURE__ */ u({
   }
 }), w = u({
   components: {
-    Slide: x
+    Slide: z
   },
   props: {
     attrs: {
@@ -152,11 +152,13 @@ const x = /* @__PURE__ */ u({
       );
     },
     onLeave() {
-      this.$emit(
-        "leave",
-        this.slot(),
-        this.find(this.lastSlide)
-      );
+      this.$nextTick(() => {
+        this.$emit(
+          "leave",
+          this.slot(),
+          this.find(this.lastSlide)
+        );
+      });
     },
     onAfterLeave() {
       this.sliding = !1, this.$nextTick(() => {
@@ -176,7 +178,7 @@ const m = (e, t) => {
   return i;
 };
 function I(e, t, i, s, l, r) {
-  const d = k("slide");
+  const d = A("slide");
   return n(), h("div", {
     class: c(["slide-deck", { sliding: e.sliding }])
   }, [
@@ -211,7 +213,7 @@ function I(e, t, i, s, l, r) {
     o(e.$slots, "bottom", { active: e.currentActive })
   ], 2);
 }
-const M = /* @__PURE__ */ m(w, [["render", I]]), H = {
+const D = /* @__PURE__ */ m(w, [["render", I]]), H = {
   props: {
     active: {
       type: Number,
@@ -237,7 +239,7 @@ const M = /* @__PURE__ */ m(w, [["render", I]]), H = {
   }
 };
 const O = { class: "slide-deck-controls" };
-function j(e, t, i, s, l, r) {
+function T(e, t, i, s, l, r) {
   return n(), h("div", O, [
     v("a", {
       href: "#",
@@ -250,10 +252,10 @@ function j(e, t, i, s, l, r) {
     ], 2)
   ]);
 }
-const N = /* @__PURE__ */ m(H, [["render", j]]);
+const M = /* @__PURE__ */ m(H, [["render", T]]);
 export {
-  x as Slide,
-  M as SlideDeck,
-  N as SlideDeckControls
+  z as Slide,
+  D as SlideDeck,
+  M as SlideDeckControls
 };
 //# sourceMappingURL=slide-deck.js.map

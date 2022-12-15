@@ -22,11 +22,11 @@
 
             <div class="w-1/2 my-6">
                 <div class="flex justify-between mb-3">
-                    <button class="text-white bg-blue-500 rounded px-2 py-1 outline-none focus:ring-4" @click="() => $refs.slides.first()">First</button>
-                    <button class="text-white bg-blue-500 rounded px-2 py-1 outline-none focus:ring-4" @click="() => $refs.slides.last()">Last</button>
+                    <button class="text-white bg-blue-500 rounded px-2 py-1 outline-none focus:ring-4" @click="() => $refs.deck.first()">First</button>
+                    <button class="text-white bg-blue-500 rounded px-2 py-1 outline-none focus:ring-4" @click="() => $refs.deck.last()">Last</button>
                 </div>
 
-                <slide-deck ref="slides" :active="2" class="border-2 border-black">
+                <slide-deck ref="deck" @enter="onEnter" @leave="onLeave" :active="2" class="border-2 border-black">
                     <template #default="{ next, prev }">
                         <div key="Slide 1" class="p-3 bg-red-100">
                             <h2 class="text-3xl mb-3">Slide 1</h2>
@@ -83,10 +83,32 @@
         <script type="module">
             import { createApp } from 'vue/dist/vue.esm-bundler.js';
             import { SlideDeck } from './index';
+
+            //@after-enter="onAfterEnter" @after-leave="onAfterLeave" @before-leave="onBeforeLeave" @before-enter="onBeforeEnter" 
             
             const vue = createApp({
                 components: {
                     SlideDeck
+                },
+                methods: {
+                    onEnter() {
+                        console.log('enter', this.$refs.deck.$refs.slide);
+                    },
+                    onLeave(current, previous) {
+                        console.log('leave', this.$refs.deck.$refs.slide);
+                    },
+                    onBeforeLeave(current, previous) {
+                        //console.log('before leave', this.$refs.deck.$refs.slide);
+                    },
+                    onBeforeEnter(current, previous) {
+                        //console.log('before enter', this.$refs.deck.$refs.slide);
+                    },
+                    onAfterLeave(current, previous) {
+                        //console.log('after leave', this.$refs.deck.$refs.slide);
+                    },
+                    onAfterEnter(current, previous) {
+                        //console.log('after enter', this.$refs.deck.$refs.slide);
+                    }
                 }
             });
 

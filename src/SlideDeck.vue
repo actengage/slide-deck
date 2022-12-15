@@ -215,11 +215,13 @@ export default defineComponent({
         },
 
         onLeave(): void {
-            this.$emit(
-                'leave',
-                this.slot(),
-                this.find(this.lastSlide)
-            );
+            this.$nextTick(() => {
+                this.$emit(
+                    'leave',
+                    this.slot(),
+                    this.find(this.lastSlide)
+                );
+            });
         },
 
         onAfterLeave(): void {
