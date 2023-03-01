@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install Modules 🔌 
-      run: npm ci
+      run: npm install
     - name: Transpile Typescript 🪛 
       run: npm run build
     # - name: Run Jest 🃏
