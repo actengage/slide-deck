@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.1",
-    "@vue-interface/eslint-config": "1.0.0-beta.4",
+    "@vue-interface/eslint-config": "^1.0.0-beta.0",
     "@vue/compiler-sfc": "^3.2.45",
     "autoprefixer": "^10.4.2",
     "change-case": "^4.1.2",
