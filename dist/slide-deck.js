@@ -1,4 +1,4 @@
-import { ref as p, defineComponent as u, onMounted as g, openBlock as n, createElementBlock as h, createBlock as a, resolveDynamicComponent as k, resolveComponent as A, normalizeClass as c, renderSlot as o, createElementVNode as v, normalizeStyle as $, createVNode as y, Transition as _, withCtx as S, KeepAlive as E, withModifiers as b, normalizeProps as B, guardReactiveProps as C, createTextVNode as L } from "vue";
+import { ref as p, defineComponent as u, onMounted as g, openBlock as s, createElementBlock as h, createBlock as a, resolveDynamicComponent as k, resolveComponent as A, normalizeClass as c, renderSlot as o, createElementVNode as v, normalizeStyle as $, createVNode as y, Transition as S, withCtx as _, KeepAlive as E, withModifiers as b, normalizeProps as B, guardReactiveProps as C, createTextVNode as L } from "vue";
 const x = { class: "slide-deck-slide" };
 let f = p();
 const z = /* @__PURE__ */ u({
@@ -9,10 +9,10 @@ const z = /* @__PURE__ */ u({
   setup(e) {
     const t = e;
     return g(() => {
-      var i, s;
-      (s = (i = f.value) == null ? void 0 : i.el) == null || s.dispatchEvent(new Event("enter"));
-    }), (i, s) => (n(), h("div", x, [
-      (n(), a(k(t.node), {
+      var i, n;
+      (n = (i = f.value) == null ? void 0 : i.el) == null || n.dispatchEvent(new Event("enter"));
+    }), (i, n) => (s(), h("div", x, [
+      (s(), a(k(t.node), {
         ref_key: "node",
         ref: f
       }, null, 512))
@@ -173,13 +173,13 @@ const z = /* @__PURE__ */ u({
 });
 const m = (e, t) => {
   const i = e.__vccOpts || e;
-  for (const [s, l] of t)
-    i[s] = l;
+  for (const [n, l] of t)
+    i[n] = l;
   return i;
 };
-function I(e, t, i, s, l, r) {
-  const d = A("slide");
-  return n(), h("div", {
+function I(e, t, i, n, l, r) {
+  const d = A("Slide");
+  return s(), h("div", {
     class: c(["slide-deck", { sliding: e.sliding }])
   }, [
     o(e.$slots, "top", { active: e.currentActive }),
@@ -188,7 +188,7 @@ function I(e, t, i, s, l, r) {
       class: c(["slide-deck-content", { [e.direction]: !0 }]),
       style: $({ maxHeight: e.maxHeight })
     }, [
-      y(_, {
+      y(S, {
         name: `slide-${e.direction}`,
         onBeforeEnter: e.onBeforeEnter,
         onEnter: e.onEnter,
@@ -197,9 +197,9 @@ function I(e, t, i, s, l, r) {
         onLeave: e.onLeave,
         onAfterLeave: e.onAfterLeave
       }, {
-        default: S(() => [
-          (n(), a(E, null, [
-            (n(), a(d, {
+        default: _(() => [
+          (s(), a(E, null, [
+            (s(), a(d, {
               ref: "slide",
               key: e.currentActive,
               node: e.find(e.currentActive)
@@ -239,8 +239,8 @@ const D = /* @__PURE__ */ m(w, [["render", I]]), H = {
   }
 };
 const O = { class: "slide-deck-controls" };
-function T(e, t, i, s, l, r) {
-  return n(), h("div", O, [
+function T(e, t, i, n, l, r) {
+  return s(), h("div", O, [
     v("a", {
       href: "#",
       class: c(["slide-deck-control-icon", { "is-active": r.isActive(e.slide, i.active) }]),

@@ -254,7 +254,7 @@ export default defineComponent({
             class="slide-deck-content"
             :class="{ [direction]: true }"
             :style="{ maxHeight }">
-            <transition
+            <Transition
                 :name="`slide-${direction}`"
                 @before-enter="onBeforeEnter"
                 @enter="onEnter"
@@ -262,13 +262,13 @@ export default defineComponent({
                 @before-leave="onBeforeLeave"
                 @leave="onLeave"
                 @after-leave="onAfterLeave">
-                <keep-alive>
-                    <slide
+                <KeepAlive>
+                    <Slide
                         ref="slide"
                         :key="currentActive"
                         :node="find(currentActive)" />
-                </keep-alive>
-            </transition>
+                </KeepAlive>
+            </Transition>
         </div>
         <slot
             name="middle"

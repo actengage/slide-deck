@@ -6,17 +6,18 @@ const props = defineProps<{
 }>();
 
 onMounted(() => {
-    node?.el?.dispatchEvent(new Event('enter'));
+    node.value?.el?.dispatchEvent(new Event('enter'));
 });
 </script>
 
 <script lang="ts">
-let node = $ref<VNode>();
+import { ref } from 'vue';
+let node = ref<VNode>();
 </script>
 
 <template>
     <div class="slide-deck-slide">
-        <component
+        <Component
             :is="props.node"
             ref="node" />
     </div>
